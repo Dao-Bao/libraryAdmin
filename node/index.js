@@ -33,3 +33,4 @@ app.use(cors()); /**解决跨域 */
 
 /* 监听路由(前端发起增删改查操作) */
 app.post('/login', require('./router/api/find/login')) /* 登录接口 */
+app.post('/reg', require('./router/api/add/addUser')) /* 注册 */

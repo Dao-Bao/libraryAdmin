@@ -7,3 +7,5 @@ export const apiDel = (url, data) => del(`/api${url}`, data)
 
 // 登录
 export const apiLogin = data => post('/api/login', data)
+// 注册
+export const apiPostReg = data => post('/api/reg', data)

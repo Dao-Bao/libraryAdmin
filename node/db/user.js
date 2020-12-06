@@ -16,7 +16,7 @@ let Schema = mongoose.Schema;
 
 /* 数据表接收数据规则 */
 let userSchema = new Schema({
-  userName: { type: Number, require: true },
+  userName: { type: String, require: true },
   passWord: { type: String, require: true }
 })
 

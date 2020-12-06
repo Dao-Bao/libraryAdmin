@@ -3,14 +3,14 @@ const user = require('../../../db/user');
 module.exports = (req, res) => {
     //得到前端传过来的数据
 	let reqData = req.body;
-  console.log('userData', userData);
+  // console.log('userData', reqData);
 
 	user
-		.findOne({ userName: userData.userName }) //检测数据库中有没有该用户
+		.findOne({ userName: reqData.userName }) //检测数据库中有没有该用户
 		.then(data=>{
 			if(data){
 				res.send({
-          code:1403,
+          code:1400,
           msg:"用户名存在",
           data: []
         });
@@ -30,7 +30,7 @@ module.exports = (req, res) => {
 					.catch((e) => {
 						res.send({
               code: 1400,
-              msg: e.msg,
+              msg: '服务器异常',
             })
 					})
 			}
