@@ -1,4 +1,4 @@
-import { get, post, postUpload, put, del } from './axios'
+import { get, post, put, del } from './axios'
 
 export const apiGet = (url, data) => get(`/api${url}`, data)
 export const apiPut = (url, data) => put(`/api${url}`, data)

@@ -11,7 +11,7 @@
             <a-input v-model="ruleForm.passWord" type="password" autocomplete="off" />
           </a-form-model-item>
           <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
-            <a-button type="primary" @click="submitForm('ruleForm')" :disabled="ruleForm.userName === '' || ruleForm.passWord === ''">
+            <a-button type="primary" @click="login" :disabled="ruleForm.userName === '' || ruleForm.passWord === ''">
               登录
             </a-button>
             <a-button style="margin-left: 10px" @click="open">
@@ -28,7 +28,7 @@
 
 <script>
 import Reg from './reg'
-import { apiLogin } from '@/utils/http_url'
+import { initDynamicRoutes } from '@/router'
 export default {
   data () {
     return {
@@ -64,29 +64,43 @@ export default {
           message: '密码不能为空'
         })
       } else {
-        apiLogin(this.ruleForm).then(res => {
-          // console.log(res)
+        this.$store.dispatch('Login', this.ruleForm).then(res => {
           if (res.code === 200) {
+            // initDynamicRoutes()
             this.$router.push('/home')
           } else if (res.code === 1400) {
-            this.$message.warning({
-              type: 'warning',
-              message: res.msg
-            })
+            this.$message.warning('3')
           } else if (res.code === 1401) {
-            this.$message({
-              type: 'warning',
-              message: res.msg
-            })
+            this.$message.warning('2')
           } else if (res.code === 1402) {
-            this.$message({
-              type: 'warning',
-              message: res.msg
-            })
+            this.$message.warning('1')
           }
         }).catch(e => {
-          this.$message.error(e.msg)
+          this.$message.warning('4')
         })
+        // apiLogin(this.ruleForm).then(res => {
+        //   // console.log(res)
+        //   if (res.code === 200) {
+        //     this.$router.push('/home')
+        //   } else if (res.code === 1400) {
+        //     this.$message.warning({
+        //       type: 'warning',
+        //       message: res.msg
+        //     })
+        //   } else if (res.code === 1401) {
+        //     this.$message({
+        //       type: 'warning',
+        //       message: res.msg
+        //     })
+        //   } else if (res.code === 1402) {
+        //     this.$message({
+        //       type: 'warning',
+        //       message: res.msg
+        //     })
+        //   }
+        // }).catch(e => {
+        //   this.$message.error(e.msg)
+        // })
       }
     },
     open () {

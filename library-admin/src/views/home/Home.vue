@@ -1,6 +1,6 @@
 <template>
   <div>
-    首页
+    <!-- 头 -->
   </div>
 </template>
 
