@@ -22,16 +22,11 @@ module.exports = (req, res) => {
                 children: [
                   {
                     id: 111,
-                    name: '菜单管理',
-                    path: '/menu',
-                    url: '/system/menu/Menu'
-                  }, {
-                    id: 222,
                     name: '角色管理',
                     path: '/role',
                     url: '/system/role/Role'
                   }, {
-                    id: 333,
+                    id: 222,
                     name: '用户管理',
                     path: '/user',
                     url: '/system/user/User'

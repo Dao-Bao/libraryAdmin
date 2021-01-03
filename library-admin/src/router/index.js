@@ -18,23 +18,29 @@ export const constantRoutes = [
   }, {
     path: '/home',
     component: () => import('@/views/home/Home'),
-    children: []
+    children: [
+      {
+        path: '',
+        component: {render(c) { return c('router-view') }},
+        children: []
+      }
+    ]
   }
 ]
 
 // 异步路由
 export function initDynamicRoutes () {
   const currentRoutes = router.options.routes
-  const menuData = store.state.LoginStore.menuData
+  const menuData = store.state.loginStore.menuData
   menuData.forEach(item => {
     item.children.forEach(item => {
       item.component = () => import(`@/views${item.url}.vue`)
       currentRoutes[1].children.push(item)
-      item.children.forEach(i => {
-        i.component = () => import(`@/views${i.url}.vue`)
-        currentRoutes[1].children[0].children.push(i)
-        // console.log(currentRoutes[1].children[0].children)
-      })
+      // item.children.forEach(i => {
+      //   i.component = () => import(`@/views${i.url}.vue`)
+      //   currentRoutes[1].children[0].children.push(i)
+      //   // console.log(currentRoutes[1].children[0].children)
+      // })
     })
   })
   router.addRoutes(currentRoutes)

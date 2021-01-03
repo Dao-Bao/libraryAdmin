@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { constantRoutes } from '@/router'
 import { apiLogin } from '@/utils/http_url'
-// import { setToken, setInfo, setRoleList, setRouterList, getInfo, getMenuList } from '@/utils/auth'
 
 Vue.use(Vuex)
 

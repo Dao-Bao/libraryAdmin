@@ -66,7 +66,7 @@ export default {
       } else {
         this.$store.dispatch('Login', this.ruleForm).then(res => {
           // if (res.code === 200) {
-          // initDynamicRoutes()
+          initDynamicRoutes()
           this.$router.push('/home')
           // } else if (res.code === 1400) {
           //   this.$message.warning('3')

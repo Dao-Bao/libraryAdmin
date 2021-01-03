@@ -4,6 +4,15 @@
   </div>
 </template>
 
+<script>
+import { initDynamicRoutes } from '@/router'
+export default {
+  created () {
+    initDynamicRoutes()
+  }
+}
+</script>
+
 <style lang="scss">
 * {
   margin: 0;
