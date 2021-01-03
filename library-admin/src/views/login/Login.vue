@@ -65,42 +65,19 @@ export default {
         })
       } else {
         this.$store.dispatch('Login', this.ruleForm).then(res => {
-          if (res.code === 200) {
-            // initDynamicRoutes()
-            this.$router.push('/home')
-          } else if (res.code === 1400) {
-            this.$message.warning('3')
-          } else if (res.code === 1401) {
-            this.$message.warning('2')
-          } else if (res.code === 1402) {
-            this.$message.warning('1')
-          }
+          // if (res.code === 200) {
+          // initDynamicRoutes()
+          this.$router.push('/home')
+          // } else if (res.code === 1400) {
+          //   this.$message.warning('3')
+          // } else if (res.code === 1401) {
+          //   this.$message.warning('2')
+          // } else if (res.code === 1402) {
+          //   this.$message.warning('1')
+          // }
         }).catch(e => {
-          this.$message.warning('4')
+          this.$message.warning(e.msg)
         })
-        // apiLogin(this.ruleForm).then(res => {
-        //   // console.log(res)
-        //   if (res.code === 200) {
-        //     this.$router.push('/home')
-        //   } else if (res.code === 1400) {
-        //     this.$message.warning({
-        //       type: 'warning',
-        //       message: res.msg
-        //     })
-        //   } else if (res.code === 1401) {
-        //     this.$message({
-        //       type: 'warning',
-        //       message: res.msg
-        //     })
-        //   } else if (res.code === 1402) {
-        //     this.$message({
-        //       type: 'warning',
-        //       message: res.msg
-        //     })
-        //   }
-        // }).catch(e => {
-        //   this.$message.error(e.msg)
-        // })
       }
     },
     open () {

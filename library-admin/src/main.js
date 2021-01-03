@@ -13,6 +13,19 @@ Vue.use(Antd)
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
+// 路由守卫
+router.beforeEach((to, from, next) => {
+  if (store.state.loginStore.token) {
+    next()
+  } else {
+    if (to.path === '/') {
+      next()
+    } else {
+      next('/')
+    }
+  }
+})
+
 new Vue({
   router,
   store,

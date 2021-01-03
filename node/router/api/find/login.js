@@ -37,6 +37,10 @@ module.exports = (req, res) => {
                     url: '/system/user/User'
                   }
                 ]
+              }],
+              userlist: [{
+                userName: 'admin',
+                token: '20210103172598'
               }]
             }
           })
