@@ -9,11 +9,14 @@ import store from './store'
 import axios from 'axios'
 import Fragment from 'vue-fragment' // 解决一个template模版下多根问题
 import '@/plugins/component' // 公共组件挂载
+import Notice from '@/components/index'
 
 Vue.use(ElementUI)
 Vue.use(Antd)
+Vue.use(Notice)
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+Vue.prototype.$notice = Notice
 Vue.use(Fragment.Plugin)
 
 // 路由守卫

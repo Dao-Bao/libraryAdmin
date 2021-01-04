@@ -45,7 +45,7 @@ export default {
 
 <style lang="scss" scoped>
 .user {
-  margin: 2%;
+  margin: 1%;
   .searchBtn {
     color: #FFF;
     background-color: #20b2aa;
