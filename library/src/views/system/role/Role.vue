@@ -26,12 +26,16 @@
     </div>
 
     <!-- 表格 -->
-    <a-table :columns="columns" :data-source="data" style="margin-top:60px">
-      <span slot="action" slot-scope="record">
-        <a-button icon="eye" type="link" @click="handleSee(record)">查看</a-button>
-        <a-button icon="delete" type="link" @click="handleDel(record)">删除</a-button>
-      </span>
-    </a-table>
+    <el-table :data="tableData" style="margin-top:60px">
+      <el-table-column prop="date" label="日期"></el-table-column>
+      <el-table-column prop="name" label="姓名"></el-table-column>
+      <el-table-column>
+        <template slot-scope="scope">
+          <el-button type="text" @click="handleSee(scope.row)">查看</el-button>
+          <el-button type="text" @click="handleDel(scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -43,30 +47,9 @@ export default {
       title: '角色管理',
       searchMenu: {},
       searchShow: true,
-      data: [{
-        key: 1,
-        name: '管理员',
-        identify: 'admin'
-      },
-      {
-        key: 2,
-        name: '其他',
-        identify: 'other'
-      }],
-      columns: [{
-        title: '角色名',
-        dataIndex: 'name',
-        key: 'name'
-      },
-      {
-        title: '标识',
-        dataIndex: 'identify',
-        key: 'identify'
-      },
-      {
-        title: '操作',
-        key: 'action',
-        scopedSlots: { customRender: 'action' }
+      tableData: [{
+        date: '2020-12-23 05:30:28',
+        name: '张三'
       }]
     }
   },
@@ -85,24 +68,15 @@ export default {
       console.log(record)
     },
     // 删除
-    handleDel (record) {
-      // console.log(record)
-      this.$confirm({
-        title: '删除提示',
-        content: '确定删除名称为：' + record.name + '的数据项？',
-        okText: '确定',
-        okType: 'danger',
-        cancelText: '取消',
-        onOk () {
-          // console.log('OK')
-          // this.$message.success('删除成功')
-          // alert('删除成功')
-          this.$notice.success('删除成功')
-        },
-        onCancel () {
-          // console.log('Cancel')
-          this.$notice.success('取消成功')
-        }
+    handleDel (val) {
+      this.$confirm("确定删除" + val.name + "的数据项?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        this.$message.success('删除成功')
+      })
+      .catch(() => {
       })
     }
   }

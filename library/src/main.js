@@ -1,23 +1,16 @@
 import Vue from 'vue'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import Antd from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.css'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import ElementUI from 'element-ui'
 import axios from 'axios'
+import 'element-ui/lib/theme-chalk/index.css'
 import Fragment from 'vue-fragment' // 解决一个template模版下多根问题
-import '@/plugins/component' // 公共组件挂载
-import Notice from '@/components/index'
 
 Vue.use(ElementUI)
-Vue.use(Antd)
-Vue.use(Notice)
-Vue.config.productionTip = false
-Vue.prototype.$http = axios
-Vue.prototype.$notice = Notice
 Vue.use(Fragment.Plugin)
+Vue.prototype.$http = axios
+Vue.config.productionTip = false
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
