@@ -34,3 +34,8 @@ app.use(cors()); /**解决跨域 */
 /* 监听路由(前端发起增删改查操作) */
 app.post('/login', require('./router/api/find/login')) /* 登录接口 */
 app.post('/reg', require('./router/api/add/addUser')) /* 注册 */
+
+app.post('/addrole', require('./router/api/add/role/addRole')) /* 角色--新增 */
+app.get('/getrole', require('./router/api/find/role/findRole')) /* 角色--查询 */
+app.put('/updaterole', require('./router/api/update/updateRole')) /* 角色--编辑 */
+app.delete('/delrole', require('./router/api/remove/delRole')) /* 角色--删除 */

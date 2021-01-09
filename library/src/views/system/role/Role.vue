@@ -8,8 +8,7 @@
       </el-form-item>
       <el-form-item label="状态">
         <el-select v-model="searchMenu.status" placeholder="角色状态">
-          <el-option label="正常" value="0"></el-option>
-          <el-option label="停用" value="1"></el-option>
+          <el-option v-for="(i, index) in statusList" :key="index" :label="i.label" :value="i.value"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -27,19 +26,49 @@
 
     <!-- 表格 -->
     <el-table :data="tableData" style="margin-top:60px">
-      <el-table-column prop="date" label="日期"></el-table-column>
-      <el-table-column prop="name" label="姓名"></el-table-column>
-      <el-table-column>
+      <el-table-column prop="roleName" label="角色名"></el-table-column>
+      <el-table-column prop="perm" label="权限标识"></el-table-column>
+      <el-table-column prop="date" label="创建时间"></el-table-column>
+      <el-table-column prop="status" label="状态">
         <template slot-scope="scope">
-          <el-button type="text" @click="handleSee(scope.row)">查看</el-button>
-          <el-button type="text" @click="handleDel(scope.row)">删除</el-button>
+          <span v-if="scope.row.status === true" style="margin-right:5px">正常</span>
+          <el-switch v-model="scope.row.status" active-color="#409eff" inactive-color="#dcdfe6" @change="changeSwitch(scope.row)"></el-switch>
+          <span v-if="scope.row.status === false" style="margin-left:5px">冻结</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.row)">修改</el-button>
+          <el-button type="text" icon="el-icon-delete" @click="handleDel(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <!-- 新增/修改弹框 -->
+    <el-dialog :title="title" :visible="dialogFormVisible">
+      <el-form :model="addform">
+        <el-form-item label="角色名称" :label-width="formLabelWidth" required>
+          <el-input v-model="addform.roleName" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="权限标识" :label-width="formLabelWidth" required>
+          <el-input v-model="addform.perm" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="状态" :label-width="formLabelWidth" required>
+          <el-radio-group v-model="addform.status">
+            <el-radio v-for="(i, index) in statusList" :key="index" :label="i.value" >{{i.label}}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="addRoleForm">确 定</el-button>
+        <el-button @click="close">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { apiPostRole, apiGetRoleList, apiPutRole, apiDelRole } from '@/utils/http_url'
 export default {
   name: 'Role',
   data () {
@@ -47,15 +76,36 @@ export default {
       title: '角色管理',
       searchMenu: {},
       searchShow: true,
-      tableData: [{
-        date: '2020-12-23 05:30:28',
-        name: '张三'
-      }]
+      statusList: [{
+        label: '正常',
+        value: 0
+      }, {
+        label: '禁用',
+        value: 1
+      }],
+      tableData: [],
+      title: '',
+      dialogFormVisible: false,
+      addform: {},
+      formLabelWidth: '80px'
     }
   },
+  mounted () {
+    this.getlist()
+  },
   methods: {
-    addrole () {
-      alert('新增')
+    getlist () {
+      apiGetRoleList().then(res => {
+        this.tableData = res
+        this.tableData.forEach(item => {
+          if (item.status === 0) {
+            item.status = true
+          }
+          if (item.status === 1) {
+            item.status = false
+          }
+        })
+      })
     },
     search () {
       console.log(this.searchMenu)
@@ -63,21 +113,131 @@ export default {
     resetSearch () {
       this.searchMenu = {}
     },
-    // 查看
-    handleSee (record) {
-      console.log(record)
+    /* 新增 */
+    addrole () {
+      this.title = '新增角色'
+      this.dialogFormVisible = true
+    },
+    /* 提交信息 */
+    addRoleForm () {
+      if (this.title === '新增角色') {
+        const params = {
+          roleName: this.addform.roleName,
+          perm: this.addform.perm,
+          status: this.addform.status,
+          date: this.getLocalDate()
+        }
+        apiPostRole(params).then(res => {
+          if (res.code === 200) {
+            this.$message.success('添加成功')
+            this.dialogFormVisible = false
+            this.addform = {}
+            this.getlist()
+          }
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
+      } else {
+        const params = {
+          roleName: this.addform.roleName,
+          perm: this.addform.perm,
+          status: this.addform.status,
+          date: this.getLocalDate(),
+          _id: this.addform._id
+        }
+        apiPutRole(params).then(res => {
+          if (res.code === 200) {
+            this.$message.success('修改成功')
+            this.dialogFormVisible = false
+            this.addform = {}
+            this.getlist()
+          }
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
+      }
+    },
+    close () {
+      this.dialogFormVisible = false
+      this.addform = {}
+      this.getlist()
+    },
+    // 禁用角色状态
+    changeSwitch (row) {
+      this.$confirm('此操作将修改该角色状态, 是否继续?', '警告', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if (row.status === false) {
+          var switchStatus = 1
+        } else {
+          var switchStatuss = 0
+        }
+        this.$message.success('修改成功')
+      }).catch(() => {
+        this.$message.info('已取消操作')
+        this.getlist()
+      })
+    },
+    // 编辑
+    handleEdit (row) {
+      this.title = '修改角色'
+      this.addform = row
+      if (this.addform.status ===  true) {
+        this.addform.status = 0
+      } else {
+        this.addform.status = 1
+      }
+      this.dialogFormVisible = true
     },
     // 删除
     handleDel (val) {
-      this.$confirm("确定删除" + val.name + "的数据项?", "提示", {
+      this.$confirm("确定删除" + val.roleName + "的数据项?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        this.$message.success('删除成功')
+        apiDelRole(val).then(res => {
+          if (res.code === 200) {
+            this.$message.success('删除成功')
+            this.getlist()
+          }
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
       })
       .catch(() => {
       })
+    },
+    getLocalDate () {
+      var date = new Date()
+      var seperator1 = "-"
+      var seperator2 = ":"
+      var month = date.getMonth() + 1
+      var strDate = date.getDate()
+      var hours = date.getHours() // 时
+      var minutes = date.getMinutes() // 分
+      var seconds = date.getSeconds() // 秒
+      if (month >= 1 && month <= 9) {
+        month = "0" + month
+      }
+      if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate
+      }
+      if (hours >= 0 && hours <= 9) {
+        hours = "0" + hours
+      }
+      if (minutes >= 0 && minutes <= 9) {
+        minutes = "0" + minutes
+      }
+      if (seconds >= 0 && seconds <= 9) {
+        seconds = "0" + seconds
+      }
+      var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+          + " " + hours + seperator2 + minutes
+          + seperator2 + seconds
+      return currentdate
     }
   }
 }
