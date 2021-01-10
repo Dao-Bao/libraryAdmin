@@ -6,6 +6,7 @@ import ElementUI from 'element-ui'
 import axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css'
 import Fragment from 'vue-fragment' // 解决一个template模版下多根问题
+import '@/plugins/component' // 公共组件挂载
 
 Vue.use(ElementUI)
 Vue.use(Fragment.Plugin)

@@ -13,7 +13,7 @@
       </el-form-item>
       <el-form-item>
         <el-button class="searchBtn" icon="el-icon-search" size="small" @click="search">查询</el-button>
-        <el-button icon="el-icon-refresh" @click="resetSearch">重置</el-button>
+        <el-button icon="el-icon-refresh" @click="reset">重置</el-button>
       </el-form-item>
     </el-form>
     <!-- 第二行 -->
@@ -45,7 +45,7 @@
     </el-table>
 
     <!-- 新增/修改弹框 -->
-    <el-dialog :title="title" :visible="dialogFormVisible">
+    <el-dialog :title="diaTitle" :visible="dialogFormVisible">
       <el-form :model="addform">
         <el-form-item label="角色名称" :label-width="formLabelWidth" required>
           <el-input v-model="addform.roleName" autocomplete="off"></el-input>
@@ -68,9 +68,11 @@
 </template>
 
 <script>
+import { getTime } from '@/mixins/time'
 import { apiPostRole, apiGetRoleList, apiGetRole, apiPutRole, apiDelRole } from '@/utils/http_url'
 export default {
   name: 'Role',
+  mixins: [ getTime ],
   data () {
     return {
       title: '角色管理',
@@ -84,7 +86,7 @@ export default {
         value: 1
       }],
       tableData: [],
-      title: '',
+      diaTitle: '',
       dialogFormVisible: false,
       addform: {},
       formLabelWidth: '80px'
@@ -123,18 +125,18 @@ export default {
         this.$message.warning('e.msg')
       })
     },
-    resetSearch () {
+    reset () {
       this.searchMenu = {}
       this.getlist()
     },
     /* 新增 */
     addrole () {
-      this.title = '新增角色'
+      this.diaTitle = '新增角色'
       this.dialogFormVisible = true
     },
     /* 提交信息 */
     addRoleForm () {
-      if (this.title === '新增角色') {
+      if (this.diaTitle === '新增角色') {
         const params = {
           roleName: this.addform.roleName,
           perm: this.addform.perm,
@@ -196,7 +198,7 @@ export default {
     },
     // 编辑
     handleEdit (row) {
-      this.title = '修改角色'
+      this.diaTitle = '修改角色'
       this.addform = row
       if (this.addform.status ===  true) {
         this.addform.status = 0
@@ -223,35 +225,6 @@ export default {
       })
       .catch(() => {
       })
-    },
-    getLocalDate () {
-      var date = new Date()
-      var seperator1 = "-"
-      var seperator2 = ":"
-      var month = date.getMonth() + 1
-      var strDate = date.getDate()
-      var hours = date.getHours() // 时
-      var minutes = date.getMinutes() // 分
-      var seconds = date.getSeconds() // 秒
-      if (month >= 1 && month <= 9) {
-        month = "0" + month
-      }
-      if (strDate >= 0 && strDate <= 9) {
-        strDate = "0" + strDate
-      }
-      if (hours >= 0 && hours <= 9) {
-        hours = "0" + hours
-      }
-      if (minutes >= 0 && minutes <= 9) {
-        minutes = "0" + minutes
-      }
-      if (seconds >= 0 && seconds <= 9) {
-        seconds = "0" + seconds
-      }
-      var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
-          + " " + hours + seperator2 + minutes
-          + seperator2 + seconds
-      return currentdate
     }
   }
 }
@@ -259,7 +232,9 @@ export default {
 
 <style lang="scss" scoped>
 .role {
-  margin: 1%;
+  margin-left: 1%;
+  margin-left: 1%;
+  margin-bottom: 1%;
   .searchBtn {
     color: #FFF;
     background-color: #20b2aa;

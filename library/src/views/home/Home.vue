@@ -13,7 +13,7 @@
         </el-dropdown>
 
         <div class="user-role">
-          <div class="wollocom">欢迎您, {{userinfo}}</div>
+          <div class="wollocom">欢迎您, {{userName}}</div>
           <div class="header-time">{{ nowDate }},{{ nowTime }}</div>
         </div>
       </div>
@@ -37,11 +37,11 @@
 
 <script>
 import MenuBar from '@/components/MenuBar'
-import { mapState } from 'vuex'
 export default {
   name: 'Home',
   data () {
     return {
+      userName: JSON.parse(sessionStorage.getItem('userinfo')),
       nowDate: null, // 存放年月日变量
       nowTime: null, // 存放时分秒变量
       timer: '', // 定义一个定时器的变量
@@ -52,14 +52,12 @@ export default {
     MenuBar
     // Tabs
   },
-  computed: {
-    ...mapState({
-      userinfo: state => state.loginStore.userinfo
-    })
-  },
   created () {
     this.timer = setInterval(this.getTime, 1000)
   },
+  // mounted () {
+  //   console.log(this.$store.state.LoginStore.userInfo)
+  // },
   methods: {
     // 获取当前日期
     getTime () {
