@@ -15,7 +15,9 @@ export const apiPostReg = data => post('/api/reg', data)
 // 新增
 export const apiPostRole = data => post('/api/addrole', data)
 // 获取列表
-export const apiGetRoleList = data => get('/api/getrole', data)
+export const apiGetRoleList = data => get('/api/getrolelist', data)
+// 根据查询条件获取结果
+export const apiGetRole = data => get('/api/getrolecond', data)
 // 删除
 export const apiDelRole = data => del('/api/delrole', data)
 // 编辑

@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import { apiPostRole, apiGetRoleList, apiPutRole, apiDelRole } from '@/utils/http_url'
+import { apiPostRole, apiGetRoleList, apiGetRole, apiPutRole, apiDelRole } from '@/utils/http_url'
 export default {
   name: 'Role',
   data () {
@@ -94,6 +94,7 @@ export default {
     this.getlist()
   },
   methods: {
+    // 获取初始化列表
     getlist () {
       apiGetRoleList().then(res => {
         this.tableData = res
@@ -108,10 +109,23 @@ export default {
       })
     },
     search () {
-      console.log(this.searchMenu)
+      apiGetRole(this.searchMenu).then(res => {
+        this.tableData = res
+        this.tableData.forEach(item => {
+          if (item.status === 0) {
+            item.status = true
+          }
+          if (item.status === 1) {
+            item.status = false
+          }
+        })
+      }).catch(e => {
+        this.$message.warning('e.msg')
+      })
     },
     resetSearch () {
       this.searchMenu = {}
+      this.getlist()
     },
     /* 新增 */
     addrole () {
