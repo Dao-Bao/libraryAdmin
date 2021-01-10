@@ -26,7 +26,7 @@
         <!-- <el-button class="downBtn" icon="el-icon-download" size="small" @click="downuser">导出</el-button> -->
       </div>
     </div>
-    <!-- 表格 -->
+    <!-- 表格 :==v-bind-->
     <el-table :data="tableData" style="margin-top:60px">
       <el-table-column prop="userId" label="用户编号"></el-table-column>
       <el-table-column prop="loginNum" label="登录账号"></el-table-column>

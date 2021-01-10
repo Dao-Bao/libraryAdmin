@@ -32,6 +32,23 @@ module.exports = (req, res) => {
                     url: '/system/user/User'
                   }
                 ]
+              }, {
+                id: 22,
+                name: '查询管理',
+                path: '/search',
+                children: [
+                  {
+                    id: 111,
+                    name: '库存查询',
+                    path: '/stock',
+                    url: '/search/Stock'
+                  }, {
+                    id: 222,
+                    name: '信息管理',
+                    path: '/message',
+                    url: '/search/Message'
+                  }
+                ]
               }],
               userlist: [{
                 userName: 'admin',
