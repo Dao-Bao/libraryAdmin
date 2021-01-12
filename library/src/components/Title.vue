@@ -17,6 +17,8 @@ export default {
 .title {
   text-align: center;
   font-size: 13px;
+  margin-top: 10px;
   margin-bottom: 10px;
+  color: #FFF;
 }
 </style>

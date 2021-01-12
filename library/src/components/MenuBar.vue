@@ -1,6 +1,7 @@
 <template>
   <div class="MenuBar">
-    <el-menu :default-active="$route.path" class="menu-bar" unique-opened>
+    <el-menu :default-active="$route.path" class="menu-bar" unique-opened background-color="rgba(84,92,100,0.3)" text-color="#fff"
+      active-text-color="#ffd04b">
       <menu-item v-if="menuList" :menuList="menuList"></menu-item>
     </el-menu>
   </div>

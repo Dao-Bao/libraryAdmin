@@ -1,8 +1,10 @@
 <template>
   <!-- 头 -->
   <el-container class="home">
-    <el-header style="display:flex; margin-top:1%; height:35px;">
-      <div style="font-size:14px;flex:1;line-height:30px;"><router-link to="/home">图书物流中心仓储管理信息系统</router-link></div>
+    <el-header style="display:flex; margin-top:1%; height:50px;">
+      <div style="font-size:14px;flex:1;line-height:30px;">
+        <img src="@/assets/logo.png" alt="">
+      </div>
       <div style="display:flex;float: right">
         <el-dropdown placement="bottom-start"  @command="handleCommand">
           <img src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png" class="headerImg" alt="">
@@ -19,7 +21,7 @@
       </div>
     </el-header>
     <!-- 内容 -->
-    <el-container>
+    <el-container class="contain">
       <!-- 侧边栏 -->
       <el-aside width="200">
         <menu-bar></menu-bar>
@@ -99,6 +101,7 @@ export default {
   width: 100%;
   height: 100vh;
   display: flex;
+  // background-image: url('../../assets/bk.jpg');
   .headerImg {
     width: 40px;
     cursor: pointer;
@@ -118,6 +121,9 @@ export default {
   }
   .el-menu {
     border-right: none;;
+  }
+  .contain {
+    background-image: url('../../assets/bk.jpg');
   }
 
   .el-aside {

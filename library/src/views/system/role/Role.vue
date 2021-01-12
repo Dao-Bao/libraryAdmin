@@ -12,20 +12,16 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button class="searchBtn" icon="el-icon-search" size="small" @click="search">查询</el-button>
+        <el-button type="warning" icon="el-icon-search" size="small" @click="search">查询</el-button>
         <el-button icon="el-icon-refresh" @click="reset">重置</el-button>
       </el-form-item>
+      <el-form-item style="float:right">
+        <el-button type="danger" icon="el-icon-plus" size="small" @click="addrole">增加角色</el-button>
+      </el-form-item>
     </el-form>
-    <!-- 第二行 -->
-    <div>
-      <div style="float:left">
-        <el-button type="primary" icon="el-icon-plus" size="small" @click="addrole">增加</el-button>
-        <!-- <el-button class="downBtn" icon="el-icon-download" size="small" @click="downuser">导出</el-button> -->
-      </div>
-    </div>
 
     <!-- 表格 -->
-    <el-table :data="tableData" style="margin-top:60px">
+    <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
       <el-table-column prop="roleName" label="角色名"></el-table-column>
       <el-table-column prop="perm" label="权限标识"></el-table-column>
       <el-table-column prop="date" label="创建时间"></el-table-column>
@@ -235,10 +231,8 @@ export default {
   margin-left: 1%;
   margin-left: 1%;
   margin-bottom: 1%;
-  .searchBtn {
-    color: #FFF;
-    background-color: #20b2aa;
-    border-color: #20b2aa;
+  ::v-deep .el-form-item__label {
+    color: #FFF
   }
 }
 </style>
