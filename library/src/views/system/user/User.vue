@@ -22,7 +22,7 @@
         <el-button type="danger" icon="el-icon-plus" size="small" @click="adduser">增加用户</el-button>
       </el-form-item>
     </el-form>
-    <!-- 表格 :==v-bind-->
+    <!-- 表格 -->
     <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
       <el-table-column prop="userId" label="用户编号"></el-table-column>
       <el-table-column prop="loginNum" label="登录账号"></el-table-column>
@@ -32,23 +32,59 @@
         <template slot-scope="scope">
           <span v-if="scope.row.status === true" style="margin-right:5px">正常</span>
           <el-switch v-model="scope.row.status" active-color="#409eff" inactive-color="#dcdfe6" @change="changeSwitch(scope.row)"></el-switch>
-          <span v-if="scope.row.status === false" style="margin-left:5px">冻结</span>
+          <span v-if="scope.row.status === false" style="margin-left:5px">禁用</span>
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="创建时间"></el-table-column>
-      <el-table-column label="操作" width="200px">
+      <el-table-column label="操作" width="220px">
         <template slot-scope="scope">
           <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.row)">修改</el-button>
           <el-button type="text" icon="el-icon-delete" @click="handleDel(scope.row)">删除</el-button>
-          <el-button type="text" icon="el-icon-key" @click="handleResetPassWord(scope.row)">重置</el-button>
+          <el-button type="text" icon="el-icon-key" @click="handleResetPassWord(scope.row)">重置密码</el-button>
         </template>
       </el-table-column>
     </el-table>
+
+    <!-- 新增/修改弹框 -->
+    <el-dialog :title="diaTitle" :visible.sync="dialogFormVisible">
+      <el-form :model="form">
+        <el-form-item label="用户昵称" :label-width="formLabelWidth" required>
+          <el-input v-model="form.userName" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="登录账号" :label-width="formLabelWidth" required>
+          <el-input v-model="form.loginNum" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item v-if="this.diaTitle !== '修改用户'" label="登录密码" :label-width="formLabelWidth" required>
+          <el-input v-model="form.loginPass" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号" :label-width="formLabelWidth" required>
+          <el-input v-model="form.phone" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="角色选择" :label-width="formLabelWidth" required>
+          <el-select v-model="form.role" placeholder="选择用户角色">
+            <el-option v-for="(i, index) in roleList" :key="index" :label="i.roleName" :value="i._id"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="状态" :label-width="formLabelWidth" required>
+          <el-radio-group v-model="form.status">
+            <el-radio v-for="(i, index) in statusList" :key="index" :label="i.value" >{{i.label}}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="备注" :label-width="formLabelWidth">
+          <el-input v-model="form.remark" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="OnSubmitUser">确 定</el-button>
+        <el-button @click="close">取 消</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { getTime } from '@/mixins/time'
+import { apiGetRoleList } from '@/utils/http_url'
 export default {
   name: 'User',
   mixins: [ getTime ],
@@ -70,17 +106,41 @@ export default {
         userName: '张三',
         phone: '10086',
         status: 0,
-        createTime: '2020-12-21 09:31:28'
-      }]
+        createTime: '2020-12-21 09:31:28',
+        role: '5ff9dd4d8a5a7f0720d4f672'
+      }],
+      diaTitle: '',
+      form: {},
+      dialogFormVisible: false,
+      formLabelWidth: '80px',
+      roleList: []
     }
   },
   methods: {
-    adduser () {},
+    /* 获取角色列表 */
+    getRole () {
+      apiGetRoleList().then(res => {
+        // console.log(res)
+        this.roleList = res
+      }).catch(e => {
+        this.$message.warning(e.msg)
+      })
+    },
     search () {
       console.log(this.searchMenu)
     },
     reset () {
       this.searchMenu = {}
+    },
+    adduser () {
+      this.diaTitle = '新增用户'
+      this.dialogFormVisible = true
+      this.getRole()
+    },
+    OnSubmitUser () {},
+    close () {
+      this.dialogFormVisible = false
+      this.form = {}
     },
     // 禁用用户
     changeSwitch (row) {
@@ -99,6 +159,18 @@ export default {
         this.$message.info('已取消操作')
         this.getlist()
       })
+    },
+    /* 修改 */
+    handleEdit (row) {
+      this.diaTitle = '修改用户'
+      this.form = row
+      if (this.form.status === false) {
+        this.form.status = 1
+      } else {
+        this.form.status = 0
+      }
+      this.dialogFormVisible = true
+      this.getRole()
     }
   }
 }
@@ -109,8 +181,10 @@ export default {
   margin-left: 1%;
   margin-left: 1%;
   margin-bottom: 1%;
-  ::v-deep .el-form-item__label {
-    color: #FFF
+  ::v-deep .demo-form-inline {
+    .el-form-item__label {
+      color: #FFF
+    }
   }
 }
 </style>

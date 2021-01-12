@@ -22,6 +22,7 @@
 
     <!-- 表格 -->
     <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
+      <el-table-column prop="_id" label="角色编号"></el-table-column>
       <el-table-column prop="roleName" label="角色名"></el-table-column>
       <el-table-column prop="perm" label="权限标识"></el-table-column>
       <el-table-column prop="date" label="创建时间"></el-table-column>
@@ -41,7 +42,7 @@
     </el-table>
 
     <!-- 新增/修改弹框 -->
-    <el-dialog :title="diaTitle" :visible="dialogFormVisible">
+    <el-dialog :title="diaTitle" :visible.sync="dialogFormVisible" style="border-radius:50px">
       <el-form :model="addform">
         <el-form-item label="角色名称" :label-width="formLabelWidth" required>
           <el-input v-model="addform.roleName" autocomplete="off"></el-input>
@@ -231,8 +232,13 @@ export default {
   margin-left: 1%;
   margin-left: 1%;
   margin-bottom: 1%;
-  ::v-deep .el-form-item__label {
-    color: #FFF
+  ::v-deep .demo-form-inline {
+    .el-form-item__label {
+      color: #FFF
+    }
+  }
+  .el-dialog {
+    border-radius: 10px;
   }
 }
 </style>
