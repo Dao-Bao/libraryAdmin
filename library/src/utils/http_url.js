@@ -22,3 +22,9 @@ export const apiGetRole = data => get('/api/getrolecond', data)
 export const apiDelRole = data => del('/api/delrole', data)
 // 编辑
 export const apiPutRole = data => put('/api/updaterole', data)
+
+/* 用户管理 */
+// 新增
+export const apiPostUser = data => post('/api/addsystemuser', data)
+// 获取用户列表
+export const apiGetUserList = data => get('/api/getuserlist', data)

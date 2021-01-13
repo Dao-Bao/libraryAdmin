@@ -24,7 +24,7 @@
     </el-form>
     <!-- 表格 -->
     <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
-      <el-table-column prop="userId" label="用户编号"></el-table-column>
+      <el-table-column prop="_id" label="用户编号"></el-table-column>
       <el-table-column prop="loginNum" label="登录账号"></el-table-column>
       <el-table-column prop="userName" label="用户昵称"></el-table-column>
       <el-table-column prop="phone" label="手机号码"></el-table-column>
@@ -75,7 +75,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="OnSubmitUser">确 定</el-button>
+        <el-button type="primary" @click="addnewuser">确 定</el-button>
         <el-button @click="close">取 消</el-button>
       </div>
     </el-dialog>
@@ -84,7 +84,7 @@
 
 <script>
 import { getTime } from '@/mixins/time'
-import { apiGetRoleList } from '@/utils/http_url'
+import { apiGetRoleList, apiPostUser, apiGetUserList } from '@/utils/http_url'
 export default {
   name: 'User',
   mixins: [ getTime ],
@@ -100,15 +100,7 @@ export default {
         label: '禁用',
         value: 1
       }],
-      tableData: [{
-        userId: '123',
-        loginNum: 'zhangsan',
-        userName: '张三',
-        phone: '10086',
-        status: 0,
-        createTime: '2020-12-21 09:31:28',
-        role: '5ff9dd4d8a5a7f0720d4f672'
-      }],
+      tableData: [],
       diaTitle: '',
       form: {},
       dialogFormVisible: false,
@@ -116,12 +108,30 @@ export default {
       roleList: []
     }
   },
+  mounted () {
+    this.getlist()
+  },
   methods: {
     /* 获取角色列表 */
     getRole () {
       apiGetRoleList().then(res => {
-        // console.log(res)
         this.roleList = res
+      }).catch(e => {
+        this.$message.warning(e.msg)
+      })
+    },
+    /* 获取用户列表 */
+    getlist () {
+      apiGetUserList().then(res => {
+        // console.log(res)
+        this.tableData = res
+        this.tableData.forEach(item => {
+          if (item.status === '0') {
+            item.status = true
+          } else {
+            item.status = false
+          }
+        })
       }).catch(e => {
         this.$message.warning(e.msg)
       })
@@ -137,7 +147,27 @@ export default {
       this.dialogFormVisible = true
       this.getRole()
     },
-    OnSubmitUser () {},
+    addnewuser () {
+      if (this.diaTitle === '新增用户') {
+        const params = {
+          userName: this.form.userName,
+          loginNum: this.form.loginNum,
+          loginPass: this.form.loginPass,
+          phone: this.form.phone,
+          role: this.form.role,
+          status: this.form.status,
+          remark: this.form.remark
+        }
+        apiPostUser(params).then(res => {
+          if (res.code ===200) {
+            this.$message.success('添加成功')
+            this.dialogFormVisible = false
+          }
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
+      }
+    },
     close () {
       this.dialogFormVisible = false
       this.form = {}

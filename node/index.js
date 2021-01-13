@@ -40,3 +40,5 @@ app.get('/getrolelist', require('./router/api/find/role/findRole')) /* 角色--�
 app.get('/getrolecond', require('./router/api/find/role/findRoleCond')) /* 角色--查询（条件） */
 app.put('/updaterole', require('./router/api/update/updateRole')) /* 角色--编辑 */
 app.delete('/delrole', require('./router/api/remove/delRole')) /* 角色--删除 */
+app.post('/addsystemuser', require('./router/api/add/addSystemUser')) /* 用户--新增 */
+app.get('/getuserlist', require('./router/api/find/user/findUser')) /* 用户--查询（列表） */
