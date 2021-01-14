@@ -40,5 +40,11 @@ app.get('/getrolelist', require('./router/api/find/role/findRole')) /* 角色--�
 app.get('/getrolecond', require('./router/api/find/role/findRoleCond')) /* 角色--查询（条件） */
 app.put('/updaterole', require('./router/api/update/updateRole')) /* 角色--编辑 */
 app.delete('/delrole', require('./router/api/remove/delRole')) /* 角色--删除 */
+
 app.post('/addsystemuser', require('./router/api/add/addSystemUser')) /* 用户--新增 */
 app.get('/getuserlist', require('./router/api/find/user/findUser')) /* 用户--查询（列表） */
+app.get('/getusercond', require('./router/api/find/user/findUserCond')) /* 用户--查询（条件） */
+app.delete('/deluser', require('./router/api/remove/delUser')) /* 用户--删除 */
+app.put('/updateuser', require('./router/api/update/updateUser')) /* 用户--编辑 */
+app.put('/updateuserpass', require('./router/api/update/updateUserPass')) /* 用户--重置密码 */
+app.put('/updateuserstatus', require('./router/api/update/updateUserStatus')) /* 用户--修改账号状态 */

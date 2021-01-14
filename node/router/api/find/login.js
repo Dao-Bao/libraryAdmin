@@ -2,14 +2,14 @@
 const user = require('../../../db/user');
 
 module.exports = (req, res) => {
-  // console.log('req', req);
   /* 得到前端来的数据 */
   let userData = req.body;
+  
   user
-    .findOne({ userName: userData.userName }) /* 查表中是否有该用户 */
+    .findOne({ loginNum: userData.loginNum }) /* 查表中是否有该用户 */
     .then(data => {
       if (data) {
-        if (data.passWord === userData.passWord) { // 如果有该用户，做密码匹配
+        if (data.loginPass === userData.loginPass) { // 如果有该用户，做密码匹配
           // console.log(data)
           res.send({
             code: 200,

@@ -28,3 +28,13 @@ export const apiPutRole = data => put('/api/updaterole', data)
 export const apiPostUser = data => post('/api/addsystemuser', data)
 // 获取用户列表
 export const apiGetUserList = data => get('/api/getuserlist', data)
+// 根据筛选条件
+export const apiGetUser = data => get('/api/getusercond',data)
+// 删除
+export const apiDelUser = data => del('/api/deluser', data)
+// 编辑
+export const apiPutUser = data => put('/api/updateuser', data)
+// 重置密码
+export const apiPutUserPass = data => put('/api/updateuserpass', data)
+// 修改用户状态
+export const apiPutUserStatus = data => put('/api/updateuserstatus', data)

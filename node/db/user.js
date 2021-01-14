@@ -16,13 +16,14 @@ let Schema = mongoose.Schema;
 
 /* 数据表接收数据规则 */
 let UserSchema = new Schema({
-  userName: { type: String, require: true }, /* 用户昵称 */
+  userName: { type: String, require: false }, /* 用户昵称 */
   loginNum: { type: String, require: true }, /* 登录账号 */
   loginPass: { type: String, require: true }, /* 登录密码 */
-  phone: { type: String, require: true }, /* 手机号 */
-  role: { type: String, require: true }, /* 角色选择 */
-  status: { type: String, require: true }, /* 状态 */
-  remark: { type: String } /* 备注 */
+  phone: { type: String, require: false }, /* 手机号 */
+  role: { type: String, require: false }, /* 角色选择 */
+  status: { type: String, require: false }, /* 状态 */
+  remark: { type: String }, /* 备注 */
+  date: {type: String, require: false}
 })
 
 /* 建表 */

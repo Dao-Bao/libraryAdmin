@@ -33,8 +33,8 @@ const loginStore = {
     Login ({ commit }, loginInfo) {
       return new Promise((resolve, reject) => {
         const params = {
-          userName: loginInfo.userName,
-          passWord: loginInfo.passWord
+          loginNum: loginInfo.loginNum,
+          loginPass: loginInfo.loginPass
         }
         apiLogin(params).then(res => {
           // console.log(res.data)

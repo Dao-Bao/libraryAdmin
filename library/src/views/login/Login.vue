@@ -5,10 +5,10 @@
       <div class="content" id="content">
         <el-form ref="form" :model="ruleForm" label-width="80px" class="form">
           <el-form-item label="账号">
-            <el-input v-model="ruleForm.userName"></el-input>
+            <el-input v-model="ruleForm.loginNum"></el-input>
           </el-form-item>
           <el-form-item label="密码">
-            <el-input type="password" v-model="ruleForm.passWord"></el-input>
+            <el-input type="password" v-model="ruleForm.loginPass"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="login">登录</el-button>

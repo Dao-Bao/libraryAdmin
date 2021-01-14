@@ -4,7 +4,7 @@
     <!-- 搜索栏 -->
     <el-form :inline="true" :model="searchMenu" size="small" class="demo-form-inline" v-if="searchShow">
       <el-form-item label="用户编号">
-        <el-input v-model="searchMenu.userId" placeholder="请输入用户编号"></el-input>
+        <el-input v-model="searchMenu._id" placeholder="请输入用户编号"></el-input>
       </el-form-item>
       <el-form-item label="手机号码">
         <el-input v-model="searchMenu.phone" placeholder="请输入手机号码"></el-input>
@@ -24,7 +24,7 @@
     </el-form>
     <!-- 表格 -->
     <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
-      <el-table-column prop="_id" label="用户编号"></el-table-column>
+      <el-table-column prop="_id" label="用户编号" width="220"></el-table-column>
       <el-table-column prop="loginNum" label="登录账号"></el-table-column>
       <el-table-column prop="userName" label="用户昵称"></el-table-column>
       <el-table-column prop="phone" label="手机号码"></el-table-column>
@@ -35,7 +35,7 @@
           <span v-if="scope.row.status === false" style="margin-left:5px">禁用</span>
         </template>
       </el-table-column>
-      <el-table-column prop="createTime" label="创建时间"></el-table-column>
+      <el-table-column prop="date" label="创建时间" width="180"></el-table-column>
       <el-table-column label="操作" width="220px">
         <template slot-scope="scope">
           <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.row)">修改</el-button>
@@ -84,7 +84,7 @@
 
 <script>
 import { getTime } from '@/mixins/time'
-import { apiGetRoleList, apiPostUser, apiGetUserList } from '@/utils/http_url'
+import { apiGetRoleList, apiPostUser, apiGetUserList, apiDelUser, apiPutUser, apiPutUserPass, apiPutUserStatus, apiGetUser } from '@/utils/http_url'
 export default {
   name: 'User',
   mixins: [ getTime ],
@@ -137,10 +137,24 @@ export default {
       })
     },
     search () {
-      console.log(this.searchMenu)
+      // console.log(this.searchMenu)
+      apiGetUser(this.searchMenu).then(res => {
+        this.tableData = res
+        this.tableData.forEach(item => {
+          if (item.status === '0') {
+            item.status = true
+          }
+          if (item.status === '1') {
+            item.status = false
+          }
+        })
+      }).catch(e => {
+        this.$message.warning(e.msg)
+      })
     },
     reset () {
       this.searchMenu = {}
+      this.getlist()
     },
     adduser () {
       this.diaTitle = '新增用户'
@@ -156,12 +170,35 @@ export default {
           phone: this.form.phone,
           role: this.form.role,
           status: this.form.status,
-          remark: this.form.remark
+          remark: this.form.remark,
+          date: this.getLocalDate()
         }
         apiPostUser(params).then(res => {
           if (res.code ===200) {
             this.$message.success('添加成功')
             this.dialogFormVisible = false
+            this.getlist()
+            this.form = {}
+          }
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
+      } else {
+        const params = {
+          _id: this.form._id,
+          userName: this.form.userName,
+          loginNum: this.form.loginNum,
+          loginPass: this.form.loginPass,
+          phone: this.form.phone,
+          role: this.form.role,
+          status: this.form.status,
+          remark: this.form.remark
+        }
+        apiPutUser(params).then(res => {
+          if (res.code ===200) {
+            this.$message.success('修改成功')
+            this.dialogFormVisible = false
+            this.getlist()
           }
         }).catch(e => {
           this.$message.warning(e.msg)
@@ -171,6 +208,7 @@ export default {
     close () {
       this.dialogFormVisible = false
       this.form = {}
+      this.getlist()
     },
     // 禁用用户
     changeSwitch (row) {
@@ -179,12 +217,16 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        if (row.status === false) {
-          var switchStatus = 1
-        } else {
-          var switchStatuss = 0
+        const params = {
+          _id: row._id,
+          status: row.status === false ? 1 : 0
         }
-        this.$message.success('修改成功')
+        apiPutUserStatus(params).then(res => {
+          this.$message.success('修改成功')
+          this.getlist()
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
       }).catch(() => {
         this.$message.info('已取消操作')
         this.getlist()
@@ -201,6 +243,43 @@ export default {
       }
       this.dialogFormVisible = true
       this.getRole()
+    },
+    /* 删除 */
+    handleDel (row) {
+      this.$confirm("确定删除" + row.userName + "的数据项?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        apiDelUser(row).then(res => {
+          if (res.code === 200) {
+            this.$message.success('删除成功')
+            this.getlist()
+          }
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
+      })
+      .catch(() => {
+      })
+    },
+    // 重置密码
+    handleResetPassWord (row) {
+      this.$prompt('请输入"' + row.userName + '"的新密码', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+        // apiPutResetPassword
+      }).then(({ value }) => {
+        const params = {
+          _id: row._id,
+          loginPass: value
+        }
+        apiPutUserPass(params).then(res => {
+          this.$message.success(`修改成功，新密码是：${value}`)
+        }).catch(e => {
+          this.$$message.warning(e.msg)
+        })
+      }).catch(() => {})
     }
   }
 }

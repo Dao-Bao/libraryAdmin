@@ -1,7 +1,8 @@
-const role = require("../../../db/role");
+const role = require("../../../db/user");
 
 module.exports = (req, res) => {
     let data = req
+
   //查找条件
   role
     .deleteOne({_id: data.query._id})

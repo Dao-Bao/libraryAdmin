@@ -10,7 +10,8 @@ module.exports = (req, res) => {
       phone: reqData.phone,
       role: reqData.role,
       status: reqData.status,
-      remark: reqData.remark
+      remark: reqData.remark,
+      date: reqData.date
     })
     .then(() => {
       res.send({
