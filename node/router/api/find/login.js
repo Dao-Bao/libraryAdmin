@@ -34,6 +34,31 @@ module.exports = (req, res) => {
                 ]
               }, {
                 id: 22,
+                name: '基本信息',
+                path: '/basic',
+                children: [{
+                  id: 221,
+                  name: '员工信息',
+                  path: '/dep',
+                  url: '/basic/dept/Dept'
+                }, {
+                  id: 222,
+                  name: '库位信息',
+                  path: '/reservoir',
+                  url: '/basic/reservoir/Reservoir'
+                }, {
+                  id: 223,
+                  name: '客户信息',
+                  path: '/printing',
+                  url: '/basic/printing/Printing'
+                }, {
+                  id: 224,
+                  name: '图书信息',
+                  path: '/library',
+                  url: '/basic/library/Library'
+                }]
+              }, {
+                id: 33,
                 name: '查询管理',
                 path: '/search',
                 children: [
