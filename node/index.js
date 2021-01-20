@@ -48,3 +48,8 @@ app.delete('/deluser', require('./router/api/remove/delUser')) /* 用户--删除
 app.put('/updateuser', require('./router/api/update/updateUser')) /* 用户--编辑 */
 app.put('/updateuserpass', require('./router/api/update/updateUserPass')) /* 用户--重置密码 */
 app.put('/updateuserstatus', require('./router/api/update/updateUserStatus')) /* 用户--修改账号状态 */
+
+app.post('/addDept', require('./router/api/add/addDept'))/* 新增部门 */
+app.get('/findDept', require('./router/api/find/department/findDept'))/* 查询部门列表 */
+app.put('/updateDept', require('./router/api/update/updateDept'))/* 修改部门 */
+app.delete('/delDept', require('./router/api/remove/delDept'))/* 删除部门 */

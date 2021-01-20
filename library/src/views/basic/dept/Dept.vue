@@ -13,9 +13,11 @@
           </div>
           <div class="table">
             <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;;background:rgba(255,255,255,0.5)">
-              <el-table-column prop="_id" label="部门编号"></el-table-column>
-              <el-table-column prop="deprName" label="部门名称"></el-table-column>
-              <el-table-column prop="manage" label="部门经理"></el-table-column>
+              <template v-if="activeName === '0'">
+                <el-table-column prop="_id" label="部门编号"></el-table-column>
+                <el-table-column prop="deptName" label="部门名称"></el-table-column>
+                <el-table-column prop="deptManager" label="部门经理"></el-table-column>
+              </template>
               <el-table-column label="操作">
                 <template slot-scope="scope">
                   <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.row)">修改</el-button>
@@ -27,10 +29,33 @@
         </template>
       </el-tab-pane>
     </el-tabs>
+
+    <!-- 弹框 -->
+    <el-dialog class="dialog" :visible="dialogFormVisible" :show-close="false">
+      <div slot="title" class="dialog-title"  style="text-align:center">
+        <span class="title-text" style="font-size:20px;font-weight:700">{{diaTitle}}</span>
+      </div>
+      <el-form :model="form" style="width:90%">
+        <el-form-item label="部门名称" :label-width="formLabelWidth">
+          <el-input v-model="form.deptName" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="部门经理" :label-width="formLabelWidth">
+          <el-input v-model="form.deptManager" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="部门描述" :label-width="formLabelWidth">
+          <el-input type="textarea" v-model="form.deptDesc"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer" style="text-align:center">
+        <el-button @click="close">取 消</el-button>
+        <el-button type="primary" @click="onSubmit">提 交</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { apiPostDept, apiGetDeptList, apiPutDept, apiDelDept } from '@/utils/http_url'
 export default {
   name: 'dept',
   data () {
@@ -47,24 +72,38 @@ export default {
         label: '员工信息',
         name: '2'
       }],
-      tableData: [{
-        _id: '13246',
-        deprName: '财务部',
-        manage: '张三'
-      }, {
-        _id: '798846',
-        deprName: '后勤部',
-        manage: '李四'
-      }]
+      tableData: [],
+      diaTitle: '',
+      formLabelWidth: '100px',
+      form: {},
+      dialogFormVisible: false
     }
   },
+  mounted () {
+    this.getlist('0')
+  },
   methods: {
-    handleClick(tab, event) {
-      console.log(tab, event)
+    handleClick(tab) {
+      this.getlist(tab.name)
+    },
+    // 获取初始化表格数据
+    getlist (val) {
+      if (val === '0') {
+        apiGetDeptList().then(res => {
+          this.tableData = res
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
+      } else if (val === '1') {
+        alert('岗位')
+      } else {
+        alert('员工信息')
+      }
     },
     /* 新增部门 */
     addDept () {
-      alert('新增部门')
+      this.diaTitle = '新增部门'
+      this.dialogFormVisible = true
     },
     /* 新增岗位 */
     addReseroir () {
@@ -75,10 +114,59 @@ export default {
       alert('新增员工')
     },
     handleEdit (row) {
-      alert('编辑')
+      // alert('编辑')
+      this.diaTitle = '修改部门信息'
+      this.form = row
+      this.dialogFormVisible = true
     },
     handleDel (row) {
-      alert('删除')
+      /* apiDelDept */
+      this.$confirm('将删除该用户, 是否确定?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        apiDelDept(row).then(res => {
+          if (res.code === 200) {
+            this.$message.success('删除成功！')
+            this.dialogFormVisible = false
+            this.getlist('0')
+          }
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
+      }).catch(() => {
+        this.$message.info('已取消删除')
+      })
+    },
+    close () {
+      this.dialogFormVisible = false
+      this.form = {}
+    },
+    // 弹框提交
+    onSubmit () {
+      if (this.diaTitle === '新增部门') {
+        apiPostDept(this.form).then(res => {
+          if (res.code === 200) {
+            this.$message.success('添加成功！')
+            this.dialogFormVisible = false
+            this.form = {}
+            this.getlist('0')
+          }
+        }).catch(e => {
+          this.$message.warning(e.message)
+        })
+      } else if (this.diaTitle === '修改部门信息') {
+        apiPutDept(this.form).then(res => {
+          if (res.code === 200) {
+            this.$message.success('修改成功！')
+            this.dialogFormVisible = false
+            this.getlist('0')
+          }
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
+      }
     }
   }
 }
@@ -130,6 +218,9 @@ export default {
         float: right;
       }
     }
+  }
+  ::v-deep .el-dialog {
+    border-radius: 10px;
   }
 }
 </style>

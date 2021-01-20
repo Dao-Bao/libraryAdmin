@@ -38,3 +38,13 @@ export const apiPutUser = data => put('/api/updateuser', data)
 export const apiPutUserPass = data => put('/api/updateuserpass', data)
 // 修改用户状态
 export const apiPutUserStatus = data => put('/api/updateuserstatus', data)
+
+/* 基本信息--员工信息 */
+// 新增
+export const apiPostDept = data => post('/api/addDept', data)
+// 查找列表
+export const apiGetDeptList = data => get('/api/findDept', data)
+// 修改
+export const apiPutDept = data => put('/api/updateDept', data)
+// 删除
+export const apiDelDept = data => del('/api/delDept', data)
