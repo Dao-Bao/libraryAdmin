@@ -18,6 +18,14 @@
                 <el-table-column prop="deptName" label="部门名称"></el-table-column>
                 <el-table-column prop="deptManager" label="部门经理"></el-table-column>
               </template>
+              <template v-if="activeName === '1'">
+                <el-table-column prop="postName" label="岗位名称"></el-table-column>
+                <el-table-column prop="postId" label="岗位编号"></el-table-column>
+              </template>
+              <template v-if="activeName === '2'">
+                <el-table-column prop="employeeId" label="员工编号"></el-table-column>
+                <el-table-column prop="employeeName" label="员工名称"></el-table-column>
+              </template>
               <el-table-column label="操作">
                 <template slot-scope="scope">
                   <el-button type="text" icon="el-icon-edit" @click="handleEdit(scope.row)">修改</el-button>
@@ -36,15 +44,25 @@
         <span class="title-text" style="font-size:20px;font-weight:700">{{diaTitle}}</span>
       </div>
       <el-form :model="form" style="width:90%">
-        <el-form-item label="部门名称" :label-width="formLabelWidth">
-          <el-input v-model="form.deptName" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="部门经理" :label-width="formLabelWidth">
-          <el-input v-model="form.deptManager" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="部门描述" :label-width="formLabelWidth">
-          <el-input type="textarea" v-model="form.deptDesc"></el-input>
-        </el-form-item>
+        <div v-if="this.activeName === '0'">
+          <el-form-item label="部门名称" :label-width="formLabelWidth">
+            <el-input v-model="form.deptName" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="部门经理" :label-width="formLabelWidth">
+            <el-input v-model="form.deptManager" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="部门描述" :label-width="formLabelWidth">
+            <el-input type="textarea" v-model="form.deptDesc"></el-input>
+          </el-form-item>
+        </div>
+        <div v-if="this.activeName === '1'">
+          <el-form-item label="岗位名称" :label-width="formLabelWidth">
+            <el-input v-model="form.postName" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="部门描述" :label-width="formLabelWidth">
+            <el-input v-model="form.postDesc" autocomplete="off"></el-input>
+          </el-form-item>
+        </div>
       </el-form>
       <div slot="footer" class="dialog-footer" style="text-align:center">
         <el-button @click="close">取 消</el-button>
@@ -95,9 +113,7 @@ export default {
           this.$message.warning(e.msg)
         })
       } else if (val === '1') {
-        alert('岗位')
       } else {
-        alert('员工信息')
       }
     },
     /* 新增部门 */
@@ -107,17 +123,23 @@ export default {
     },
     /* 新增岗位 */
     addReseroir () {
-      alert('新增岗位')
+      this.diaTitle = '新增岗位'
+      this.dialogFormVisible = true
     },
     /* 新增员工 */
     addUser () {
       alert('新增员工')
     },
     handleEdit (row) {
-      // alert('编辑')
-      this.diaTitle = '修改部门信息'
-      this.form = row
-      this.dialogFormVisible = true
+      if (this.activeName === '0') {
+        this.diaTitle = '修改部门信息'
+        this.form = row
+        this.dialogFormVisible = true
+      } else if (this.activeName === '1') {
+        this.diaTitle = '修改岗位信息'
+        this.form = row
+        this.dialogFormVisible = true
+      }
     },
     handleDel (row) {
       /* apiDelDept */
