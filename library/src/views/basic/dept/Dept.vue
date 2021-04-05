@@ -14,17 +14,19 @@
           <div class="table">
             <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;;background:rgba(255,255,255,0.5)">
               <template v-if="activeName === '0'">
-                <el-table-column prop="_id" label="部门编号"></el-table-column>
+                <el-table-column prop="deptId" label="部门编号"></el-table-column>
                 <el-table-column prop="deptName" label="部门名称"></el-table-column>
                 <el-table-column prop="deptManager" label="部门经理"></el-table-column>
               </template>
               <template v-if="activeName === '1'">
-                <el-table-column prop="postName" label="岗位名称"></el-table-column>
                 <el-table-column prop="postId" label="岗位编号"></el-table-column>
+                <el-table-column prop="postName" label="岗位名称"></el-table-column>
               </template>
               <template v-if="activeName === '2'">
                 <el-table-column prop="employeeId" label="员工编号"></el-table-column>
                 <el-table-column prop="employeeName" label="员工名称"></el-table-column>
+                <el-table-column prop="employeeDept" label="部门"></el-table-column>
+                <el-table-column prop="employeePost" label="岗位"></el-table-column>
               </template>
               <el-table-column label="操作">
                 <template slot-scope="scope">
@@ -45,6 +47,9 @@
       </div>
       <el-form :model="form" style="width:90%">
         <div v-if="this.activeName === '0'">
+          <el-form-item label="部门编号" :label-width="formLabelWidth">
+            <el-input v-model="form.deptId" autocomplete="off"></el-input>
+          </el-form-item>
           <el-form-item label="部门名称" :label-width="formLabelWidth">
             <el-input v-model="form.deptName" autocomplete="off"></el-input>
           </el-form-item>
@@ -56,11 +61,28 @@
           </el-form-item>
         </div>
         <div v-if="this.activeName === '1'">
+          <el-form-item label="岗位编号" :label-width="formLabelWidth">
+            <el-input v-model="form.postId" autocomplete="off"></el-input>
+          </el-form-item>
           <el-form-item label="岗位名称" :label-width="formLabelWidth">
             <el-input v-model="form.postName" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="部门描述" :label-width="formLabelWidth">
+          <el-form-item label="岗位描述" :label-width="formLabelWidth">
             <el-input v-model="form.postDesc" autocomplete="off"></el-input>
+          </el-form-item>
+        </div>
+        <div v-if="this.activeName === '2'">
+          <el-form-item label="员工编号" :label-width="formLabelWidth">
+            <el-input v-model="form.employeeId" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="员工名称" :label-width="formLabelWidth">
+            <el-input v-model="form.employeeName" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="部门" :label-width="formLabelWidth">
+            <el-input v-model="form.employeeDept" autocomplete="off"></el-input>
+          </el-form-item>
+          <el-form-item label="岗位" :label-width="formLabelWidth">
+            <el-input v-model="form.employeePost" autocomplete="off"></el-input>
           </el-form-item>
         </div>
       </el-form>
@@ -73,7 +95,7 @@
 </template>
 
 <script>
-import { apiPostDept, apiGetDeptList, apiPutDept, apiDelDept } from '@/utils/http_url'
+import { apiPostDept, apiGetDeptList, apiPutDept, apiDelDept, apiPostPost, apiGetPostList, apiPutPost, apiDelPost, apiPostEmployee, apiGetEmployeeList, apiPutEmployee, apiDelEmployee } from '@/utils/http_url'
 export default {
   name: 'dept',
   data () {
@@ -113,7 +135,17 @@ export default {
           this.$message.warning(e.msg)
         })
       } else if (val === '1') {
+        apiGetPostList().then(res => {
+          this.tableData = res
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
       } else {
+        apiGetEmployeeList().then(res => {
+          this.tableData = res
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
       }
     },
     /* 新增部门 */
@@ -128,7 +160,8 @@ export default {
     },
     /* 新增员工 */
     addUser () {
-      alert('新增员工')
+      this.diaTitle = '新增员工'
+      this.dialogFormVisible = true
     },
     handleEdit (row) {
       if (this.activeName === '0') {
@@ -139,24 +172,47 @@ export default {
         this.diaTitle = '修改岗位信息'
         this.form = row
         this.dialogFormVisible = true
+      } else {
+        this.diaTitle = '修改员工信息'
+        this.form = row
+        this.dialogFormVisible = true
       }
     },
     handleDel (row) {
-      /* apiDelDept */
       this.$confirm('将删除该用户, 是否确定?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        apiDelDept(row).then(res => {
-          if (res.code === 200) {
-            this.$message.success('删除成功！')
-            this.dialogFormVisible = false
-            this.getlist('0')
-          }
-        }).catch(e => {
-          this.$message.warning(e.msg)
-        })
+        if (this.activeName === '0') {
+            apiDelDept(row).then(res => {
+              if (res.code === 200) {
+                this.$message.success('删除成功！')
+                this.dialogFormVisible = false
+                this.getlist('0')
+              }
+            }).catch(e => {
+              this.$message.warning(e.msg)
+            })
+        } else if (this.activeName === '1') {
+          apiDelPost(row).then(res => {
+            if (res.code === 200) {
+                this.$message.success('删除成功！')
+                this.dialogFormVisible = false
+                this.getlist('1')
+              }
+            }).catch(e => {
+              this.$message.warning(e.msg)
+            })
+        } else {
+          apiDelEmployee(row).then(res => {
+            if (res.code === 200) {
+              this.$message.success('删除成功!')
+              this.dialogFormVisible = false
+              this.getlist('2')
+            }
+          })
+        }
       }).catch(() => {
         this.$message.info('已取消删除')
       })
@@ -183,8 +239,45 @@ export default {
           if (res.code === 200) {
             this.$message.success('修改成功！')
             this.dialogFormVisible = false
+            this.form = {}
             this.getlist('0')
           }
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
+      } else if (this.diaTitle === '新增岗位') {
+        apiPostPost(this.form).then(res => {
+          this.$message.success('新增岗位成功！')
+          this.dialogFormVisible = false
+          this.form = {}
+          this.getlist('1')
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
+      } else if (this.diaTitle === '修改岗位信息') {
+        apiPutPost(this.form).then(res => {
+          this.$message.success('岗位信息修改成功!')
+          this.dialogFormVisible = false
+          this.form = {}
+          this.getlist('1')
+        }).catch(e => {
+          this.$message.warning(e.msg)
+        })
+      } else if (this.diaTitle === '新增员工') {
+        apiPostEmployee(this.form).then(res => {
+          this.$message.success('新增员工成功！')
+          this.dialogFormVisible = false
+          this.form = {}
+          this.getlist('2')
+        }).catch(e => {
+          this.$mesasge.warning(e.msg)
+        })
+      } else {
+        apiPutEmployee(this.form).then(res => {
+          this.$message.success('修改成功！')
+          this.dialogFormVisible = false
+          this.form = {}
+          this.getlist('2')
         }).catch(e => {
           this.$message.warning(e.msg)
         })

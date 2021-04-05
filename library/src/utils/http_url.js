@@ -39,7 +39,7 @@ export const apiPutUserPass = data => put('/api/updateuserpass', data)
 // 修改用户状态
 export const apiPutUserStatus = data => put('/api/updateuserstatus', data)
 
-/* 基本信息--员工信息 */
+/* 基本信息--员工信息--部门 */
 // 新增
 export const apiPostDept = data => post('/api/addDept', data)
 // 查找列表
@@ -48,3 +48,23 @@ export const apiGetDeptList = data => get('/api/findDept', data)
 export const apiPutDept = data => put('/api/updateDept', data)
 // 删除
 export const apiDelDept = data => del('/api/delDept', data)
+
+/* 基本信息--员工信息--岗位信息 */
+// 新增
+export const apiPostPost = data => post('/api/addPost', data)
+// 查找列表
+export const apiGetPostList = data => get('/api/findPost', data)
+// 修改
+export const apiPutPost = data => put('/api/updatePost', data)
+// 删除
+export const apiDelPost = data => del('/api/delPost', data)
+
+/* 基本信息--员工信息--员工信息 */
+// 新增
+export const apiPostEmployee = data => post('/api/addEmployee', data)
+// 查找列表
+export const apiGetEmployeeList = data => get('/api/findEmployee', data)
+// 修改
+export const apiPutEmployee = data => put('/api/updateEmployee', data)
+// 删除
+export const apiDelEmployee = data => del('/api/delEmployee', data)
