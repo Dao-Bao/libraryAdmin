@@ -49,7 +49,17 @@ app.put('/updateuser', require('./router/api/update/updateUser')) /* 用户--编
 app.put('/updateuserpass', require('./router/api/update/updateUserPass')) /* 用户--重置密码 */
 app.put('/updateuserstatus', require('./router/api/update/updateUserStatus')) /* 用户--修改账号状态 */
 
-app.post('/addDept', require('./router/api/add/addDept'))/* 新增部门 */
-app.get('/findDept', require('./router/api/find/department/findDept'))/* 查询部门列表 */
-app.put('/updateDept', require('./router/api/update/updateDept'))/* 修改部门 */
-app.delete('/delDept', require('./router/api/remove/delDept'))/* 删除部门 */
+app.post('/addDept', require('./router/api/add/addDept'))/* 员工信息--部门--新增 */
+app.get('/findDept', require('./router/api/find/department/findDept'))/* 员工信息--部门--查询 */
+app.put('/updateDept', require('./router/api/update/updateDept'))/* 员工信息--部门--修改 */
+app.delete('/delDept', require('./router/api/remove/delDept'))/* 员工信息--部门--删除 */
+
+app.post('/addPost', require('./router/api/add/addPost'))/* 员工信息--岗位--新增 */
+app.get('/findPost', require('./router/api/find/findPost'))/* 员工信息--岗位--查询 */
+app.put('/updatePost', require('./router/api/update/updatePost'))/* 员工信息--岗位--修改 */
+app.delete('/delPost', require('./router/api/remove/delPost'))/* 员工信息--岗位--删除 */
+
+app.post('/addEmployee', require('./router/api/add/addEmployee'))/* 员工信息--员工信息--新增 */
+app.get('/findEmployee', require('./router/api/find/findEmployee'))/* 员工信息--员工信息--查询 */
+app.put('/updateEmployee', require('./router/api/update/updateEmployee'))/* 员工信息--员工信息--修改 */
+app.delete('/delEmployee', require('./router/api/remove/delEmployee'))/* 员工信息--员工信息--删除 */

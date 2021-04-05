@@ -1,9 +1,9 @@
-const dept = require('../../../db/department');
+const dept = require('../../../db/employee');
 module.exports = (req, res) => {
   let reqData = req.body;
 
 	dept
-    .updateOne({ _id: reqData._id }, { "$set": { "deptId":reqData.deptId, "deptName":reqData.deptName,"deptManager":reqData.deptManager, "deptDesc": reqData.deptDesc} })
+    .updateOne({ _id: reqData._id }, { "$set": { "employeeId": reqData.employeeId, "employeeName":reqData.employeeName,"employeeDept": reqData.employeeDept, "employeePost":reqData.employeePost} })
     .then((data) => {
       res.send({
         code:200,

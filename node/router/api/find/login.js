@@ -60,18 +60,18 @@ module.exports = (req, res) => {
               }, {
                 id: 33,
                 name: '查询管理',
-                path: '/search',
+                path: '/query',
                 children: [
                   {
                     id: 111,
                     name: '库存查询',
                     path: '/stock',
-                    url: '/search/Stock'
+                    url: '/query/stock/Stock'
                   }, {
                     id: 222,
                     name: '信息管理',
                     path: '/message',
-                    url: '/search/Message'
+                    url: '/query/message/Message'
                   }
                 ]
               }],

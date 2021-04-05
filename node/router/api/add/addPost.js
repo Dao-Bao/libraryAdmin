@@ -1,13 +1,12 @@
-const user = require('../../../db/department');
+const user = require('../../../db/post');
 module.exports = (req, res) => {
   let reqData = req.body;
 
 	user
     .create({
-      deptId: reqData.deptId,
-      deptName: reqData.deptName,
-      deptManager: reqData.deptManager,
-      deptDesc: reqData.deptDesc,
+      postId: reqData.postId,
+      postName: reqData.postName,
+      postDesc: reqData.postDesc,
       date: reqData.date
     })
     .then(() => {

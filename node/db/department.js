@@ -16,9 +16,10 @@ let Schema = mongoose.Schema;
 
 /* 数据表接收数据规则 */
 let DeptSchema = new Schema({
-  deptName: { type: String, require: false }, /* 部门名称 */
-  deptManager: { type: String, require: false }, /* 部门经理 */
-  deptDesc: { type: String, require: false }, /* 部门描述 */
+  deptId: { type: Number, require:true },/* 部门编号 */
+  deptName: { type: String, require: true }, /* 部门名称 */
+  deptManager: { type: String, require: true }, /* 部门经理 */
+  deptDesc: { type: String, require: true }, /* 部门描述 */
   date: {type: String, require: false}
 })
 
