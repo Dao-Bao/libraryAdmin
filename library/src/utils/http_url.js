@@ -68,3 +68,11 @@ export const apiGetEmployeeList = data => get('/api/findEmployee', data)
 export const apiPutEmployee = data => put('/api/updateEmployee', data)
 // 删除
 export const apiDelEmployee = data => del('/api/delEmployee', data)
+
+/* 基本信息--出版社信息 */
+// 新增
+export const apiPostPrinting = data => post('/api/addPrinting', data)
+// 查找列表
+export const apiGetPrinting = data => get('/api/findPrinting', data)
+// 查询
+export const apiGetPrintingOne = data => get('/api/findPrintingOne', data)
