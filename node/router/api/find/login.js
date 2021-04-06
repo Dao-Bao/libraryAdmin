@@ -48,7 +48,7 @@ module.exports = (req, res) => {
                   url: '/basic/reservoir/Reservoir'
                 }, {
                   id: 223,
-                  name: '客户信息',
+                  name: '出版社信息',
                   path: '/printing',
                   url: '/basic/printing/Printing'
                 }, {

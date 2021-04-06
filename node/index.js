@@ -63,3 +63,7 @@ app.post('/addEmployee', require('./router/api/add/addEmployee'))/* 员工信息
 app.get('/findEmployee', require('./router/api/find/findEmployee'))/* 员工信息--员工信息--查询 */
 app.put('/updateEmployee', require('./router/api/update/updateEmployee'))/* 员工信息--员工信息--修改 */
 app.delete('/delEmployee', require('./router/api/remove/delEmployee'))/* 员工信息--员工信息--删除 */
+
+app.post('/addPrinting', require('./router/api/add/addPrinting'))/* 出版社信息--新增 */
+app.get('/findPrinting', require('./router/api/find/findPrinting'))/* 出版社信息--列表 */
+app.get('/findPrintingOne', require('./router/api/find/findPrintingOne'))/* 出版社信息--查询 */
