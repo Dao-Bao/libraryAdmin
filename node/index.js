@@ -67,3 +67,6 @@ app.delete('/delEmployee', require('./router/api/remove/delEmployee'))/* 员工�
 app.post('/addPrinting', require('./router/api/add/addPrinting'))/* 出版社信息--新增 */
 app.get('/findPrinting', require('./router/api/find/findPrinting'))/* 出版社信息--列表 */
 app.get('/findPrintingOne', require('./router/api/find/findPrintingOne'))/* 出版社信息--查询 */
+
+app.post('/addreservoir', require('./router/api/add/addReservoir'))/* 新增库位 */
+app.get('/findreservoir', require('./router/api/find/findReservoir'))/* 查找库位信息 */

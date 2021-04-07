@@ -59,21 +59,76 @@ module.exports = (req, res) => {
                 }]
               }, {
                 id: 33,
+                name: '库存盘点',
+                path: '/checking',
+                children: [{
+                  id: 331,
+                  name: '库存信息打印',
+                  path: '/checkingprinting',
+                  url: '/checking/info/InfoPrinting'
+                }, {
+                  id: 332,
+                  name: '库存信息盘点',
+                  path: '/checkinginfo',
+                  url: '/checking/check/CheckingCheck'
+                }]
+              }, {
+                id: 44,
+                name: '出库管理',
+                path: '/delivery',
+                children: [{
+                  id: 441,
+                  name: '图书出库',
+                  path: '/deliverybook',
+                  url: '/delivery/Delivery'
+                }]
+              }, {
+                id: 55,
+                name: '入库管理',
+                path: '/warehousing',
+                children: [{
+                  id: 551,
+                  name: '图书入库',
+                  path: '/warehouding',
+                  url: '/warehousing/Warehousing'
+                }]
+              }, {
+                id: 66,
                 name: '查询管理',
                 path: '/query',
                 children: [
                   {
-                    id: 111,
+                    id: 661,
                     name: '库存查询',
                     path: '/stock',
                     url: '/query/stock/Stock'
                   }, {
-                    id: 222,
-                    name: '信息管理',
+                    id: 662,
+                    name: '信息查询',
                     path: '/message',
                     url: '/query/message/Message'
+                  }, {
+                    id: 663,
+                    name: '图书查询',
+                    path: '/book',
+                    url: '/query/book/Book'
+                  }, {
+                    id: 664,
+                    name: '出入库订单查询',
+                    path: '/stocks',
+                    url: '/query/stocks/Stocks'
                   }
                 ]
+              }, {
+                id: 77,
+                name: '采购管理',
+                path: '/purchase',
+                children: [{
+                  id: 771,
+                  name: '采购单',
+                  path: '/order',
+                  url: '/purchase/Order'
+                }]
               }],
               userlist: [{
                 userName: 'admin',
