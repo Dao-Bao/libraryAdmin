@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { apiGetReservoir } from '@/utils/http_url'
 export default {
   name: 'reservoir',
   data () {
@@ -33,15 +34,16 @@ export default {
   },
   methods: {
     search() {
-      // apiGetPrintingOne(this.searchMenu).then(res => {
-      //   this.tableData = res
-      // }).catch(e => {
-      //   this.$message.warning(e.msg)
-      // })
+      apiGetReservoir(this.searchMenu).then(res => {
+        this.tableData = res
+      }).catch(e => {
+        this.$message.warning(e.msg)
+      })
     },
     reset() {
       this.searchMenu = {}
       // this.getList()
+      this.tableData = []
     }
   }
 }

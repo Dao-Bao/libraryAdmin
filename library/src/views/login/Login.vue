@@ -39,15 +39,14 @@ export default {
     login () {
       if (this.ruleForm.userName === '') {
         this.$message.error('账号不能为空')
-        this.$notice.warning('账号不能为空')
       } else if (this.ruleForm.passWord === '') {
-        this.$notice.warning('密码不能为空')
+        this.$message.warning('密码不能为空')
       } else {
         this.$store.dispatch('Login', this.ruleForm).then(res => {
           initDynamicRoutes()
           this.$router.push('/home')
         }).catch(e => {
-          this.$notice.warning(e.msg)
+          this.$message.warning(e.msg)
         })
       }
     },

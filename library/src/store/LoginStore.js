@@ -37,7 +37,6 @@ const loginStore = {
           loginPass: loginInfo.loginPass
         }
         apiLogin(params).then(res => {
-          // console.log(res.data)
           commit('SET_MENUDATA', res.data.menulist) // 存vuex
           commit('SET_INFO', res.data.userlist[0].userName)
           commit('SET_TOKEN', res.data.userlist[0].token)

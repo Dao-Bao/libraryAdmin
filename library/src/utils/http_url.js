@@ -76,3 +76,16 @@ export const apiPostPrinting = data => post('/api/addPrinting', data)
 export const apiGetPrinting = data => get('/api/findPrinting', data)
 // 查询
 export const apiGetPrintingOne = data => get('/api/findPrintingOne', data)
+
+/* 基本信息-客户信息 */
+// 新增
+export const apiPostCustomer = data => post('/api/addCustomer', data)
+// 列表
+export const apiGetCustomerList = data => get('/api/findCustomerList', data)
+// 查询一条
+export const apiGetCustomerOne = data => get('/api/findCustomerOne', data)
+
+/* 新增库位信息 */
+export const apiPostReservoir = data => post('/api/addReservoir', data)
+/* 查找库位信息 */
+export const apiGetReservoir = data => get('/api/findReservoir', data)

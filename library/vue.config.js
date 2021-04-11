@@ -73,7 +73,7 @@ module.exports = {
     proxy: {
       // 配置多个跨域
       '/api': {
-        target: 'http://localhost:9000',
+        target: 'http://localhost:8888',
         changeOrigin: true,
         ws: true, // websocket支持
         secure: false,
