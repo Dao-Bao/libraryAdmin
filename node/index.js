@@ -70,6 +70,7 @@ app.get('/findPrintingOne', require('./router/api/find/findPrintingOne'))/* 出�
 
 app.post('/addreservoir', require('./router/api/add/addReservoir'))/* 新增库位 */
 app.get('/findreservoir', require('./router/api/find/findReservoir'))/* 查找库位信息 */
+app.get('/findreservoirone', require('./router/api/find/findReservoirOne'))/* 查单条数据 */
 
 app.post('/addlibrary', require('./router/api/add/addLibrary'))/* 新增图书 */
 app.get('/findlibrary', require('./router/api/find/findLibrary'))/* 查找列表 */

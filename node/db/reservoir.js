@@ -16,10 +16,12 @@ let Schema = mongoose.Schema;
 
 /* 数据表接收数据规则 */
 let ReserovirSchema = new Schema({
-  reservoirId: { type: Number, require: false }, /* 库位编号 */
-  isEnpty: { type: String, require: false }, /* 是否入库*/
-  bookNum: { type: String,  require: false }, /* 图书编号 */
-  wareNum: { type: String, require: false }, /* 入库单编号 */
+  reservoirId: { type: Number, require: true }, /* 库位编码 */
+  reservoirKQId: { type: Number, require: true }, /* 库区编码*/
+  reservoirWareHouse: { type: Number,  require: true }, /* 仓库编码 */
+  reservoirName: { type: String, require: true }, /* 库位名称 */
+  reservoirKQName: { type: String, require: true }, /* 库区名称 */
+  reservoirWareHouseName: { type: String, require: true }, /* 仓库名称 */
   remark: { type: String, require: false }, /* 备注 */
   date: {type: String, require: false }
 })

@@ -5,9 +5,11 @@ module.exports = (req, res) => {
 	user
     .create({
       reservoirId: reqData.reservoirId,
-      isEnpty: reqData.isEnpty,
-      bookNum: reqData.bookNum,
-      wareNum: reqData.wareNum,
+      reservoirKQId: reqData.reservoirKQId,
+      reservoirWareHouse: reqData.reservoirWareHouse,
+      reservoirName: reqData.reservoirName,
+      reservoirKQName: reqData.reservoirKQName,
+      reservoirWareHouseName: reqData.reservoirWareHouseName,
       remark: reqData.remark
     })
     .then(() => {

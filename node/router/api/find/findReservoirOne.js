@@ -1,8 +1,14 @@
-const dept = require('../../../db/reservoir');
+/* 引入reservoir表规则 */
+const resevoir = require('../../../db/reservoir');
 
 module.exports = (req, res) => {
-  dept
-    .find({})
+  let data = req.query
+  resevoir
+  .find({
+    $or: [
+      {reservoirId: data.reservoirId}
+    ]
+  })
     .then(data => {
       if (data) {
         res.send(data)
