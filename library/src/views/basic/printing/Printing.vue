@@ -23,7 +23,9 @@
     <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
       <el-table-column prop="printingId" label="出版社编号"></el-table-column>
       <el-table-column prop="printingName" label="出版社名称"></el-table-column>
-      <el-table-column prop="printingAddress" label="出版社地址"></el-table-column>
+      <el-table-column prop="printingContant" label="联系人"></el-table-column>
+      <el-table-column prop="printingEmail" label="E-mail"></el-table-column>
+      <el-table-column prop="remark" label="备注"></el-table-column>
     </el-table>
 
     <!-- 新增弹框 -->
@@ -35,8 +37,14 @@
         <el-form-item label="出版社名称" :label-width="formLabelWidth" required>
           <el-input v-model="form.printingName" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="出版社地址" :label-width="formLabelWidth" required>
-          <el-input v-model="form.printingAddress" autocomplete="off"></el-input>
+        <el-form-item label="联系人" :label-width="formLabelWidth" required>
+          <el-input v-model="form.printingContant" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="E-mail" :label-width="formLabelWidth" required>
+          <el-input v-model="form.printingEmail" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="备注" :label-width="formLabelWidth">
+          <el-input v-model="form.remark" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
