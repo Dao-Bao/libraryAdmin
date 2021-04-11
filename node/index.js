@@ -24,7 +24,7 @@ const server = http.createServer((req, res) => {
 });
 
 
-app.listen(9000, () => { console.log("服务器启动...") });  /**监听9000端口 */
+app.listen(8888, () => { console.log("服务器启动...") });  /**监听8888端口 */
 
 /**中间件 */
 app.use(express.json());
@@ -70,3 +70,7 @@ app.get('/findPrintingOne', require('./router/api/find/findPrintingOne'))/* 出�
 
 app.post('/addreservoir', require('./router/api/add/addReservoir'))/* 新增库位 */
 app.get('/findreservoir', require('./router/api/find/findReservoir'))/* 查找库位信息 */
+
+app.post('/addCustomer', require('./router/api/add/addCustomer'))/* 新增客户 */
+app.get('/findCustomerList', require('./router/api/find/findCustomer'))/* 客户列表 */
+app.get('/findCustomerOne', require('./router/api/find/findCustomeOner'))/* 条件查找 */

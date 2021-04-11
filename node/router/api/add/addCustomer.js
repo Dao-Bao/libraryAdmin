@@ -1,14 +1,16 @@
-const user = require('../../../db/reservoir');
+const user = require('../../../db/customer');
 module.exports = (req, res) => {
   let reqData = req.body;
 
 	user
     .create({
-      reservoirId: reqData.reservoirId,
-      isEnpty: reqData.isEnpty,
-      bookNum: reqData.bookNum,
-      wareNum: reqData.wareNum,
-      remark: reqData.remark
+      customerName: reqData.customerName,
+      customerSex: reqData.customerSex,
+      customerAddress: reqData.customerAddress,
+      customerPhone: reqData.customerPhone,
+      customerEamil: reqData.customerEamil,
+      remark: reqData.remark,
+      date: reqData.date
     })
     .then(() => {
       res.send({

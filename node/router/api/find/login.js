@@ -4,7 +4,6 @@ const user = require('../../../db/user');
 module.exports = (req, res) => {
   /* 得到前端来的数据 */
   let userData = req.body;
-  
   user
     .findOne({ loginNum: userData.loginNum }) /* 查表中是否有该用户 */
     .then(data => {
@@ -56,6 +55,11 @@ module.exports = (req, res) => {
                   name: '图书信息',
                   path: '/library',
                   url: '/basic/library/Library'
+                }, {
+                  id: 225,
+                  name: '客户信息',
+                  path: '/customer',
+                  url: '/basic/customer/Customer'
                 }]
               }, {
                 id: 33,
@@ -119,16 +123,6 @@ module.exports = (req, res) => {
                     url: '/query/stocks/Stocks'
                   }
                 ]
-              }, {
-                id: 77,
-                name: '采购管理',
-                path: '/purchase',
-                children: [{
-                  id: 771,
-                  name: '采购单',
-                  path: '/order',
-                  url: '/purchase/Order'
-                }]
               }],
               userlist: [{
                 userName: 'admin',
