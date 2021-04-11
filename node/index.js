@@ -71,6 +71,10 @@ app.get('/findPrintingOne', require('./router/api/find/findPrintingOne'))/* 出�
 app.post('/addreservoir', require('./router/api/add/addReservoir'))/* 新增库位 */
 app.get('/findreservoir', require('./router/api/find/findReservoir'))/* 查找库位信息 */
 
+app.post('/addlibrary', require('./router/api/add/addLibrary'))/* 新增图书 */
+app.get('/findlibrary', require('./router/api/find/findLibrary'))/* 查找列表 */
+app.get('/findlibraryone', require('./router/api/find/findLibraryOne'))/* 查单条数据 */
+
 app.post('/addCustomer', require('./router/api/add/addCustomer'))/* 新增客户 */
 app.get('/findCustomerList', require('./router/api/find/findCustomer'))/* 客户列表 */
 app.get('/findCustomerOne', require('./router/api/find/findCustomeOner'))/* 条件查找 */

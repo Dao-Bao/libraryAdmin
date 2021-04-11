@@ -112,11 +112,6 @@ module.exports = (req, res) => {
                     path: '/message',
                     url: '/query/message/Message'
                   }, {
-                    id: 663,
-                    name: '图书查询',
-                    path: '/book',
-                    url: '/query/book/Book'
-                  }, {
                     id: 664,
                     name: '出入库订单查询',
                     path: '/stocks',
