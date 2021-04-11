@@ -97,3 +97,5 @@ export const apiGetCustomerOne = data => get('/api/findCustomerOne', data)
 export const apiPostReservoir = data => post('/api/addReservoir', data)
 /* 查找库位信息 */
 export const apiGetReservoir = data => get('/api/findReservoir', data)
+/* 查单条数据 */
+export const apiGetReservoirOne = data => get('/api/findreservoirone', data)
