@@ -18,7 +18,9 @@ let Schema = mongoose.Schema;
 let PrintingSchema = new Schema({
   printingId: { type: Number, require: true }, /* 出版社编号 */
   printingName: { type: String, require: true }, /* 出版社名称 */
-  printingAddress: { type: String, require: true }, /* 出版社地址 */
+  printingContant: { type: String, require: true }, /* 联系人 */
+  printingEmail: { type: String, require: true }, /* Email */
+  remark: { type: String, require: false }, /* 备注 */
   date: {type: String, require: false }
 })
 

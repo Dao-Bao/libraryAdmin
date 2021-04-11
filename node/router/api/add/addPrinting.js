@@ -6,7 +6,9 @@ module.exports = (req, res) => {
     .create({
       printingId: reqData.printingId,
       printingName: reqData.printingName,
-      printingAddress: reqData.printingAddress,
+      printingContant: reqData.printingContant,
+      printingEmail: reqData.printingEmail,
+      remark: reqData.remark,
       date: reqData.date
     })
     .then(() => {
