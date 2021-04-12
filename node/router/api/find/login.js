@@ -66,11 +66,6 @@ module.exports = (req, res) => {
                 name: '库存盘点',
                 path: '/checking',
                 children: [{
-                  id: 331,
-                  name: '库存信息打印',
-                  path: '/checkingprinting',
-                  url: '/checking/info/InfoPrinting'
-                }, {
                   id: 332,
                   name: '库存信息盘点',
                   path: '/checkinginfo',

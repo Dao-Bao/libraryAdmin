@@ -79,3 +79,7 @@ app.get('/findlibraryone', require('./router/api/find/findLibraryOne'))/* 查单
 app.post('/addCustomer', require('./router/api/add/addCustomer'))/* 新增客户 */
 app.get('/findCustomerList', require('./router/api/find/findCustomer'))/* 客户列表 */
 app.get('/findCustomerOne', require('./router/api/find/findCustomeOner'))/* 条件查找 */
+
+app.post('/addwarehouse', require('./router/api/add/addWarehouse')) /* 入库管理-新增入库单 */
+app.get('/findWarehouse', require('./router/api/find/findWarehouse'))/* 入库管理-列表 */
+app.get('/findWarehouseOne', require('./router/api/find/findWarehouseOne'))/* 入库管理-条件查找 */
