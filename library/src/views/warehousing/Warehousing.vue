@@ -4,8 +4,8 @@
 
     <!-- 搜索栏 -->
     <el-form :inline="true" :model="searchMenu" size="small" class="demo-form-inline">
-      <el-form-item label="图书编号">
-        <el-input v-model="searchMenu.book" placeholder="请输入图书编号查询库存"></el-input>
+      <el-form-item label="入库单编号">
+        <el-input v-model="searchMenu._id" placeholder="请输入入库单号"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="warning" icon="el-icon-search" @click="search">查询</el-button>
@@ -18,21 +18,42 @@
 
     <!-- 表格 -->
     <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
-      <el-table-column prop="bookId" label="图书编号"></el-table-column>
-      <el-table-column prop="isWare" label="是否入库"></el-table-column>
+      <el-table-column prop="_id" label="图书编号"></el-table-column>
+      <el-table-column prop="warehousingprice" label="总金额"></el-table-column>
+      <el-table-column prop="warehousingprinting" label="出版社"></el-table-column>
+      <el-table-column prop="warehousingtotal" label="入库总数"></el-table-column>
+      <el-table-column prop="warehousingtime" label="入库时间"></el-table-column>
+      <el-table-column prop="warehousingtype" label="入库方式"></el-table-column>
+      <el-table-column prop="warehousingperson" label="制单人"></el-table-column>
+      <el-table-column prop="warehousingremark" label="备注"></el-table-column>
     </el-table>
 
     <!-- 新增入库单 -->
     <el-dialog title="新增入库单" :visible.sync="dialogFormVisible">
       <el-form :model="form">
-        <el-form-item label="图书编号" :label-width="formLabelWidth" required>
-          <el-input v-model="form.bookNum" autocomplete="off"></el-input>
+        <el-form-item label="总金额" :label-width="formLabelWidth" required>
+          <el-input v-model="form.warehousingprice" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="入库单号" :label-width="formLabelWidth" required>
-          <el-input v-model="form.wareNum" autocomplete="off"></el-input>
+        <el-form-item label="出版社" :label-width="formLabelWidth" required>
+          <el-input v-model="form.warehousingprinting" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="入库总数" :label-width="formLabelWidth" required>
+          <el-input v-model="form.warehousingtotal" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="入库时间" :label-width="formLabelWidth" required>
+          <el-input v-model="form.warehousingtime" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="入库方式" :label-width="formLabelWidth" required>
+          <el-select v-model="form.warehousingtype" placeholder="请选择入库方式">
+            <el-option label="采购入库" value="采购入库"></el-option>
+            <el-option label="推书入库" value="推书入库"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="制单人" :label-width="formLabelWidth" required>
+          <el-input v-model="form.warehousingperson" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="备注" :label-width="formLabelWidth">
-          <el-input v-model="form.remark" autocomplete="off"></el-input>
+          <el-input v-model="form.warehousingremark" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -44,7 +65,7 @@
 </template>
 
 <script>
-import { apiPostReservoir } from '@/utils/http_url'
+import { apiPostWarehouse, apiGetWarehouse, apiGetWareHouseOne } from '@/utils/http_url'
 export default {
   name: 'stock',
   data () {
@@ -57,27 +78,43 @@ export default {
       formLabelWidth: '80px'
     }
   },
+  mounted () {
+    this.getlist()
+  },
   methods:{
+    getlist () {
+      apiGetWarehouse().then(res => {
+        this.tableData = res
+      }).catch(e => {
+        this.$message.warning(e.msg)
+      })
+    },
     search () {
-      console.log(this.searchMenu)
+      apiGetWareHouseOne(this.searchMenu).then(res => {
+        this.tableData = res
+      }).catch(e => {
+        this.$message.warning(e.msg)
+      })
     },
     reset () {
-      console.log('重置', this.searchMenu)
+      this.searchMenu = {}
+      this.getlist()
     },
     addbook () {
       this.dialogFormVisible = true
     },
     addware () {
-      this.form.isEnpty = 1
-      apiPostReservoir(this.form).then(res => {
+      apiPostWarehouse(this.form).then(res => {
         this.dialogFormVisible = false
         this.form = {}
         this.$message.success('新增成功!')
+        this.getlist()
       })
     },
     close () {
       this.dialogFormVisible = false
       this.form = {}
+      this.getlist()
     }
   }
 }

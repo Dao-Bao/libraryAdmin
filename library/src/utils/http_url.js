@@ -99,3 +99,11 @@ export const apiPostReservoir = data => post('/api/addReservoir', data)
 export const apiGetReservoir = data => get('/api/findReservoir', data)
 /* 查单条数据 */
 export const apiGetReservoirOne = data => get('/api/findreservoirone', data)
+
+/* 入库管理 */
+// 新增
+export const apiPostWarehouse = data => post('/api/addwarehouse', data)
+// 列表
+export const apiGetWarehouse = data => get('/api/findWarehouse', data)
+// 单条
+export const apiGetWareHouseOne = data => get('/api/findWarehouseOne', data)
