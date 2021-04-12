@@ -107,3 +107,11 @@ export const apiPostWarehouse = data => post('/api/addwarehouse', data)
 export const apiGetWarehouse = data => get('/api/findWarehouse', data)
 // 单条
 export const apiGetWareHouseOne = data => get('/api/findWarehouseOne', data)
+
+/* 出库管理 */
+// 新增
+export const apiPostOutwarehouse = data => post('/api/addOutwarehouse', data)
+// 列表
+export const apiGetOutwarehouse = data => get('/api/findOutwarehouse', data)
+// 单条
+export const apiGetOutwarehouseOne = data => get('/api/findOutwarehouseOne', data)
