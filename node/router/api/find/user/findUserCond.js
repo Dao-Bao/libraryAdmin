@@ -6,7 +6,7 @@ module.exports = (req, res) => {
   user
     .find({
       $or: [
-        {_id: data._id}, {phone: data.phone}, {status: data.status}
+        {_id: data._id}, {status: data.status}
       ]
     })
     .then(data => {

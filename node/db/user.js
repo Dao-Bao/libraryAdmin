@@ -23,6 +23,7 @@ let UserSchema = new Schema({
   role: { type: String, require: false }, /* 角色选择 */
   status: { type: String, require: false }, /* 状态 */
   remark: { type: String }, /* 备注 */
+  perm: { type: String, require: true }, /* 权限 */
   date: {type: String, require: false}
 })
 
