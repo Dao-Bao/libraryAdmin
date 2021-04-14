@@ -19,6 +19,10 @@ let PrintingSchema = new Schema({
   printingId: { type: Number, require: true }, /* 出版社编号 */
   printingName: { type: String, require: true }, /* 出版社名称 */
   printingContant: { type: String, require: true }, /* 联系人 */
+  sex: { type: String, require: true }, /* 性别 */
+  position: { type: String, require: true }, /* 职位 */
+  address: { type: String, require: true }, /* 地址 */
+  phone: { type: String, require: true }, /* 电话 */
   printingEmail: { type: String, require: true }, /* Email */
   remark: { type: String, require: false }, /* 备注 */
   date: {type: String, require: false }

@@ -6,7 +6,7 @@ module.exports = (req, res) => {
   resevoir
   .find({
     $or: [
-      {_id: data._id}
+      {outwarehousingId: data.outwarehousingId}
     ]
   })
     .then(data => {

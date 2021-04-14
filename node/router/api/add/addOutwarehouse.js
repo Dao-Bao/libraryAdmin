@@ -4,11 +4,18 @@ module.exports = (req, res) => {
 
 	user
     .create({
+      outwarehousingId: reqData.outwarehousingId,
+      bookname: reqData.bookname,
       outwarehousingprice: reqData.outwarehousingprice,
       outwarehousingprinting: reqData.outwarehousingprinting,
       outwarehousingtotal: reqData.outwarehousingtotal,
+      bookprice: reqData.bookprice,
+      booknum: reqData.booknum,
       outwarehousingtime: reqData.outwarehousingtime,
       outwarehousingtype: reqData.outwarehousingtype,
+      warehousename: reqData.warehousename,
+      kwname: reqData.kwname,
+      kqname: reqData.kqname,
       outwarehousingperson: reqData.outwarehousingperson,
       outwarehousingremark: reqData.outwarehousingremark
     })

@@ -23,11 +23,18 @@ let WareHouseSchema = new Schema({
   warehousingtype: { type: String, require: false }, /* 入库方式 */
   warehousingperson: { type: String, require: false }, /* 入库制单人 */
   warehousingremark: { type: String, require: false }, /* 入库备注 */
+  outwarehousingId: { type: Number, require: false }, /* 出库单编号 */
+  bookname: { type: String, require: false }, /* 图书名称 */
   outwarehousingprice: { type: Number, require: false }, /* 出库总金额 */
   outwarehousingprinting: { type: String, require: false }, /* 出库出版社名称 */
   outwarehousingtotal: { type: Number, require: false }, /* 出库总数 */
+  bookprice: { type: Number, require: false }, /* 图书单价 */
+  booknum: { type: Number, require: false }, /* 图书数量 */
   outwarehousingtime: { type: String, require: false }, /* 出库时间 */
   outwarehousingtype: { type: String, require: false }, /* 出库方式 */
+  warehousename: { type: String, require: false }, /* 仓库名称 */
+  kwname: { type: String, require: false }, /* 库位名称 */
+  kqname: { type: String, require: false }, /* 库区名称 */
   outwarehousingperson: { type: String, require: false }, /* 出库制单人 */
   outwarehousingremark: { type: String, require: false }, /* 出库备注 */
   date: {type: String, require: false }

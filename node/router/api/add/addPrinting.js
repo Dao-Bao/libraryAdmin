@@ -7,6 +7,10 @@ module.exports = (req, res) => {
       printingId: reqData.printingId,
       printingName: reqData.printingName,
       printingContant: reqData.printingContant,
+      sex: reqData.sex,
+      position: reqData.position,
+      address: reqData.address,
+      phone: reqData.phone,
       printingEmail: reqData.printingEmail,
       remark: reqData.remark,
       date: reqData.date
