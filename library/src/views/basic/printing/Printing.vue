@@ -23,7 +23,11 @@
     <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
       <el-table-column prop="printingId" label="出版社编号"></el-table-column>
       <el-table-column prop="printingName" label="出版社名称"></el-table-column>
-      <el-table-column prop="printingContant" label="联系人"></el-table-column>
+      <el-table-column prop="printingContant" label="联系人">
+        <template slot-scope="scope">
+          <p @click="detail(scope.row)" class="detail" style="cursor: pointer">{{scope.row.printingContant}}</p>
+        </template>
+      </el-table-column>
       <el-table-column prop="printingEmail" label="E-mail"></el-table-column>
       <el-table-column prop="remark" label="备注"></el-table-column>
     </el-table>
@@ -40,6 +44,21 @@
         <el-form-item label="联系人" :label-width="formLabelWidth" required>
           <el-input v-model="form.printingContant" autocomplete="off"></el-input>
         </el-form-item>
+        <el-form-item label="性别" :label-width="formLabelWidth" required>
+          <el-radio-group v-model="form.sex">
+            <el-radio label="男"></el-radio>
+            <el-radio label="女"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="职位" :label-width="formLabelWidth" required>
+          <el-input v-model="form.position" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="地址" :label-width="formLabelWidth" required>
+          <el-input v-model="form.address" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="电话" :label-width="formLabelWidth" required>
+          <el-input v-model="form.phone" autocomplete="off"></el-input>
+        </el-form-item>
         <el-form-item label="E-mail" :label-width="formLabelWidth" required>
           <el-input v-model="form.printingEmail" autocomplete="off"></el-input>
         </el-form-item>
@@ -51,6 +70,20 @@
         <el-button type="primary" @click="addPrinting">确 定</el-button>
         <el-button @click="close">取 消</el-button>
       </div>
+    </el-dialog>
+
+    <!-- 联系人详情 -->
+    <el-dialog title="联系人明细" :visible.sync="dialogTableVisible" width="70%">
+      <el-table :data="gridData">
+        <el-table-column property="printingId" label="出版社编码"></el-table-column>
+        <el-table-column property="printingContant" label="姓名"></el-table-column>
+        <el-table-column property="sex" label="性别"></el-table-column>
+        <el-table-column property="position" label="职位"></el-table-column>
+        <el-table-column property="address" label="地址"></el-table-column>
+        <el-table-column property="phone" label="电话"></el-table-column>
+        <el-table-column property="printingEmail" label="E-mail"></el-table-column>
+        <el-table-column property="remark" label="备注"></el-table-column>
+      </el-table>
     </el-dialog>
   </div>
 </template>
@@ -67,7 +100,9 @@ export default {
       form: {},
       formLabelWidth: '100px',
       diaTitle: '',
-      dialogFormVisible: false
+      dialogFormVisible: false,
+      dialogTableVisible: false,
+      gridData: []
     }
   },
   mounted () {
@@ -109,6 +144,14 @@ export default {
       this.dialogFormVisible = false
       this.form = {}
       this.getList()
+    },
+    detail(row) {
+      apiGetPrintingOne({ printingId: row.printingId }).then(res => {
+        this.dialogTableVisible = true
+        this.gridData = res
+      }).catch(e => {
+        this.$message.warning(e.msg)
+      })
     }
   }
 }
@@ -122,6 +165,9 @@ export default {
     .el-form-item__label {
       color: #FFF
     }
+  }
+  .detail:hover {
+    color: #409EFF;
   }
 }
 </style>
