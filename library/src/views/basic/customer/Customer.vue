@@ -106,6 +106,7 @@ export default {
         this.$message.success('添加成功！')
         this.dialogFormVisible = false
         this.form = {}
+        this.getlist()
       })
     },
     close () {
