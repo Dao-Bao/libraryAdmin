@@ -6,9 +6,6 @@
       <el-form-item label="用户编号">
         <el-input v-model="searchMenu._id" placeholder="请输入用户编号"></el-input>
       </el-form-item>
-      <el-form-item label="手机号码">
-        <el-input v-model="searchMenu.phone" placeholder="请输入手机号码"></el-input>
-      </el-form-item>
       <el-form-item label="状态">
         <el-select v-model="searchMenu.status" placeholder="用户状态">
           <el-option v-for="(i, index) in statusList" :key="index" :label="i.label" :value="i.value"></el-option>
@@ -62,7 +59,7 @@
         </el-form-item>
         <el-form-item label="角色选择" :label-width="formLabelWidth" required>
           <el-select v-model="form.role" placeholder="选择用户角色">
-            <el-option v-for="(i, index) in roleList" :key="index" :label="i.roleName" :value="i._id"></el-option>
+            <el-option v-for="(i, index) in roleList" :key="index" :label="i.roleName" :value="i.perm"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="状态" :label-width="formLabelWidth" required>

@@ -48,7 +48,9 @@
           <el-input v-model="addform.roleName" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="权限标识" :label-width="formLabelWidth" required>
-          <el-input v-model="addform.perm" autocomplete="off"></el-input>
+          <el-select v-model="addform.perm" placeholder="用户状态">
+            <el-option v-for="(i, index) in permList" :key="index" :label="i.label" :value="i.value"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="状态" :label-width="formLabelWidth" required>
           <el-radio-group v-model="addform.status">
@@ -75,6 +77,16 @@ export default {
       title: '角色管理',
       searchMenu: {},
       searchShow: true,
+      permList: [{
+        label: '管理员',
+        value: 'admin'
+      }, {
+        label: '其他用户',
+        value: 'other'
+      }, {
+        label: '测试',
+        value: 'test'
+      }],
       statusList: [{
         label: '正常',
         value: 0
