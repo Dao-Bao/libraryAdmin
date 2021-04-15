@@ -92,29 +92,31 @@ module.exports = (req, res) => {
                     path: '/warehouding',
                     url: '/warehousing/Warehousing'
                   }]
-                }, {
-                  id: 66,
-                  name: '查询管理',
-                  path: '/query',
-                  children: [
-                    {
-                      id: 661,
-                      name: '库存查询',
-                      path: '/stock',
-                      url: '/query/stock/Stock'
-                    }, {
-                      id: 662,
-                      name: '信息查询',
-                      path: '/message',
-                      url: '/query/message/Message'
-                    }, {
-                      id: 664,
-                      name: '出入库订单查询',
-                      path: '/stocks',
-                      url: '/query/stocks/Stocks'
-                    }
-                  ]
-                }],
+                }
+                // {
+                //   id: 66,
+                //   name: '查询管理',
+                //   path: '/query',
+                //   children: [
+                //     {
+                //       id: 661,
+                //       name: '库存查询',
+                //       path: '/stock',
+                //       url: '/query/stock/Stock'
+                //     }, {
+                //       id: 662,
+                //       name: '信息查询',
+                //       path: '/message',
+                //       url: '/query/message/Message'
+                //     }, {
+                //       id: 664,
+                //       name: '出入库订单查询',
+                //       path: '/stocks',
+                //       url: '/query/stocks/Stocks'
+                //     }
+                //   ]
+                // }
+              ],
                 userlist: [{
                   userName: 'admin',
                   token: '20210103172598'
@@ -186,29 +188,31 @@ module.exports = (req, res) => {
                     path: '/warehouding',
                     url: '/warehousing/Warehousing'
                   }]
-                }, {
-                  id: 66,
-                  name: '查询管理',
-                  path: '/query',
-                  children: [
-                    {
-                      id: 661,
-                      name: '库存查询',
-                      path: '/stock',
-                      url: '/query/stock/Stock'
-                    }, {
-                      id: 662,
-                      name: '信息查询',
-                      path: '/message',
-                      url: '/query/message/Message'
-                    }, {
-                      id: 664,
-                      name: '出入库订单查询',
-                      path: '/stocks',
-                      url: '/query/stocks/Stocks'
-                    }
-                  ]
-                }],
+                }
+                // {
+                //   id: 66,
+                //   name: '查询管理',
+                //   path: '/query',
+                //   children: [
+                //     {
+                //       id: 661,
+                //       name: '库存查询',
+                //       path: '/stock',
+                //       url: '/query/stock/Stock'
+                //     }, {
+                //       id: 662,
+                //       name: '信息查询',
+                //       path: '/message',
+                //       url: '/query/message/Message'
+                //     }, {
+                //       id: 664,
+                //       name: '出入库订单查询',
+                //       path: '/stocks',
+                //       url: '/query/stocks/Stocks'
+                //     }
+                //   ]
+                // }
+              ],
                 userlist: [{
                   userName: 'admin',
                   token: '20210103172598'
