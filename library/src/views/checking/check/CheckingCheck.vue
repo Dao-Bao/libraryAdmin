@@ -38,7 +38,7 @@ export default {
   name: 'stock',
   data () {
     return {
-      title: '库存查询',
+      title: '库存信息盘点',
       searchMenu: {},
       tableData: []
     }
