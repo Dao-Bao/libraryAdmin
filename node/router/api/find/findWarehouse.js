@@ -4,10 +4,21 @@ module.exports = (req, res) => {
   dept
     .find({})
     .then(data => {
-      if (data) {
-        res.send(data)
-      } else {
+      let newdata = data.map(item => {
+        if (item.warehousingprice !== undefined) {
+          return item
+        } else {
+          return 
+        }
+      })
+      if (newdata) {
+        newdata.splice(newdata.findIndex(item => item === undefined), 1)
       }
+      res.send(newdata)
+      // if (data) {
+      //   res.send(data)
+      // } else {
+      // }
     })
     .catch(e => {
       res.send({
