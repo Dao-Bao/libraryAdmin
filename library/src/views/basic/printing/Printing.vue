@@ -16,11 +16,12 @@
       </el-form-item>
       <el-form-item style="float:right">
         <el-button type="danger" icon="el-icon-plus" size="small" @click="addprinting">增加出版社</el-button>
+        <down-load style="margin-left: 30px"/>
       </el-form-item>
     </el-form>
 
     <!-- 表格 -->
-    <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
+    <el-table :data="tableData" id="table" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
       <el-table-column prop="printingId" label="出版社编号"></el-table-column>
       <el-table-column prop="printingName" label="出版社名称"></el-table-column>
       <el-table-column prop="printingContant" label="联系人">
@@ -90,7 +91,9 @@
 
 <script>
 import { apiPostPrinting, apiGetPrinting, apiGetPrintingOne } from '@/utils/http_url'
+import DownLoad from '../../../components/DownLoad.vue'
 export default {
+  components: { DownLoad },
   name: 'Printing',
   data () {
     return {

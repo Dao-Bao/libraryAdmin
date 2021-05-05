@@ -13,11 +13,12 @@
       </el-form-item>
       <el-form-item style="float:right">
         <el-button type="danger" icon="el-icon-plus" size="small" @click="addbook">新增入库单</el-button>
+        <down-load style="margin-left: 30px"/>
       </el-form-item>
     </el-form>
 
     <!-- 表格 -->
-    <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
+    <el-table :data="tableData" id="table" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
       <el-table-column prop="_id" label="图书编号"></el-table-column>
       <el-table-column prop="warehousingprice" label="总金额"></el-table-column>
       <el-table-column prop="warehousingprinting" label="出版社"></el-table-column>

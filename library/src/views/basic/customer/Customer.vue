@@ -16,11 +16,12 @@
       </el-form-item>
       <el-form-item style="float:right">
         <el-button type="danger" icon="el-icon-plus" size="small" @click="opendia">增加客户</el-button>
+        <down-load style="margin-left: 30px"/>
       </el-form-item>
     </el-form>
 
     <!-- 表格 -->
-    <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
+    <el-table :data="tableData" id="table" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
       <el-table-column prop="_id" label="客户编号"></el-table-column>
       <el-table-column prop="customerName" label="姓名"></el-table-column>
       <el-table-column prop="customerSex" label="性别"></el-table-column>

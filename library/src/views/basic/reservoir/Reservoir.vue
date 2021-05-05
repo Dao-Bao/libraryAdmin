@@ -13,11 +13,12 @@
       </el-form-item>
       <el-form-item style="float:right">
         <el-button type="danger" icon="el-icon-plus" size="small" @click="opendia">增加库位</el-button>
+        <down-load style="margin-left: 30px"/>
       </el-form-item>
     </el-form>
 
     <!-- 表格 -->
-    <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
+    <el-table :data="tableData" id="table" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
       <el-table-column prop="reservoirId" label="库位编码"></el-table-column>
       <el-table-column prop="reservoirKQId" label="库区编码"></el-table-column>
       <el-table-column prop="reservoirWareHouse" label="仓库编码"></el-table-column>

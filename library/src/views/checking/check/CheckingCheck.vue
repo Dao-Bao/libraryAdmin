@@ -11,10 +11,13 @@
         <el-button type="warning" icon="el-icon-search" @click="search">查询</el-button>
         <el-button icon="el-icon-refresh" @click="reset">重置</el-button>
       </el-form-item>
+      <el-form-item style="float:right">
+        <down-load style="margin-left: 30px"/>
+      </el-form-item>
     </el-form>
 
     <!-- 表格 -->
-    <el-table :data="tableData" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
+    <el-table :data="tableData" id="table" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
       <el-table-column prop="_id" label="图书编号"></el-table-column>
       <!-- <el-table-column prop="bookNum" label="图书库存量"></el-table-column> -->
       <el-table-column prop="pringting" label="出版社"></el-table-column>
@@ -45,10 +48,8 @@ export default {
   },
   methods:{
     search () {
-      console.log(this.searchMenu)
     },
     reset () {
-      console.log('重置', this.searchMenu)
     }
   }
 }
