@@ -5,7 +5,7 @@ module.exports = (req, res) => {
     .find({})
     .then(data => {
       let newdata = data.map(item => {
-        if (item.warehousingprice !== undefined) {
+        if (item.warehousingId) {
           return item
         } else {
           return 

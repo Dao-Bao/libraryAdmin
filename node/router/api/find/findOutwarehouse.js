@@ -5,15 +5,15 @@ module.exports = (req, res) => {
     .find({})
     .then(data => {
       let newdata = data.map(item => {
-        if (item.outwarehousingId !== undefined) {
+        if (item.outwarehousingId) {
           return item
         } else {
           return 
         }
       })
-      if (newdata) {
-        newdata.splice(newdata.findIndex(item => item === undefined), 1)
-      }
+      // if (newdata) {
+      //   newdata.splice(newdata.findIndex(item => item === undefined), 1)
+      // }
       res.send(newdata)
     })
     .catch(e => {

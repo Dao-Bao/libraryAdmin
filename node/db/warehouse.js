@@ -16,6 +16,7 @@ let Schema = mongoose.Schema;
 
 /* 数据表接收数据规则 */
 let WareHouseSchema = new Schema({
+  warehousingId: { type: Number, require: false }, /* 入库单编号 */
   warehousingprice: { type: Number, require: false }, /* 入库总金额 */
   warehousingprinting: { type: String, require: false }, /* 入库出版社名称 */
   warehousingtotal: { type: Number, require: false }, /* 入库总数 */
@@ -37,7 +38,8 @@ let WareHouseSchema = new Schema({
   kqname: { type: String, require: false }, /* 库区名称 */
   outwarehousingperson: { type: String, require: false }, /* 出库制单人 */
   outwarehousingremark: { type: String, require: false }, /* 出库备注 */
-  date: {type: String, require: false }
+  date: {type: String, require: false },
+  books: { type: Array, required: true } /* 详细订单信息 */
 })
 
 /* 建表 */
