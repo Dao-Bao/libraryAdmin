@@ -35,7 +35,7 @@
     </el-table>
 
     <!-- 新增出库单 -->
-    <el-dialog title="新增出库单" :visible.sync="dialogFormVisible">
+    <el-dialog title="新增出库单" :visible.sync="dialogFormVisible" width="75%">
       <el-form :model="form">
         <el-form-item label="出库单编号" :label-width="formLabelWidth" required>
           <el-input v-model="form.outwarehousingId" autocomplete="off"></el-input>
@@ -43,17 +43,44 @@
         <el-form-item label="总金额" :label-width="formLabelWidth" required>
           <el-input v-model="form.outwarehousingprice" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="图书单价" :label-width="formLabelWidth" required>
-          <el-input v-model="form.bookprice" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="图书名称" :label-width="formLabelWidth" required>
-          <el-input v-model="form.bookname" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="数量" :label-width="formLabelWidth" required>
-          <el-input v-model="form.booknum" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="出版社" :label-width="formLabelWidth" required>
-          <el-input v-model="form.outwarehousingprinting" autocomplete="off"></el-input>
+        <el-form-item label="图书信息" :label-width="formLabelWidth" required>
+          <el-table :data="form.books" :border=false>
+            <el-table-column prop="bookprice" label="图书单价">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.bookprice" autocomplete="off" size="small" placeholder="单价"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="bookname" label="图书名称">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.bookname" autocomplete="off" size="small" placeholder="名称"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="booknum" label="数量">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.booknum" autocomplete="off" size="small" placeholder="数量"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="outwarehousingprinting" label="出版社">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.outwarehousingprinting" autocomplete="off" size="small" placeholder="出版社"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="remarks" label="备注">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.remarks" autocomplete="off" size="small" placeholder="备注"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column
+              label="操作"
+              width="100">
+              <template slot-scope="scope">
+                <el-button @click.native.prevent="deleteRow(scope.$index, form.books)" type="text" size="small">移除</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+          <div style="text-align:center;background-color:#FFFFFF">
+            <i style="cursor:pointer;color:red" class="el-icon-plus" @click="addmembers">添加</i>
+          </div>
         </el-form-item>
         <el-form-item label="出库总数" :label-width="formLabelWidth" required>
           <el-input v-model="form.outwarehousingtotal" autocomplete="off"></el-input>
@@ -114,7 +141,13 @@ export default {
       searchMenu: {},
       tableData: [],
       dialogFormVisible: false,
-      form: {},
+      form: {
+        outwarehousingId: undefined,
+        outwarehousingprice: undefined,
+        books: [],
+        outwarehousingtotal: undefined,
+        outwarehousingtime: undefined
+      },
       formLabelWidth: '100px',
       dialogTableVisible: false,
       gridData: []
@@ -165,6 +198,23 @@ export default {
       }).catch(e => {
         this.$message.warning(e.msg)
       })
+    },
+    // 表格增加行
+    addmembers () {
+      var member = this.form.books
+      var length = member.length
+      this.form.books.push({
+        id: parseInt(length),
+        bookprice: '',
+        bookname: '',
+        booknum: '',
+        outwarehousingprinting: '',
+        remarks: ''
+      })
+    },
+    // 删除行
+    deleteRow (index, rows) {
+      rows.splice(index, 1)
     }
   }
 }
