@@ -19,14 +19,14 @@
 
     <!-- 表格 -->
     <el-table :data="tableData" id="table" :header-cell-style="{'color':'#333333','background-color':'#E5E8F8'}" style="width:99%;margin-top:20px;border-radius:10px;background:rgba(255,255,255,0.5)">
-      <el-table-column prop="_id" label="图书编号"></el-table-column>
+      <!-- <el-table-column prop="_id" label="图书编号"></el-table-column> -->
       <el-table-column prop="outwarehousingId" label="出库单编号">
         <template slot-scope="scope">
           <p @click="detail(scope.row)" class="detail" style="cursor: pointer">{{scope.row.outwarehousingId}}</p>
         </template>
       </el-table-column>
       <el-table-column prop="outwarehousingprice" label="总金额"></el-table-column>
-      <el-table-column prop="outwarehousingprinting" label="出版社"></el-table-column>
+      <!-- <el-table-column prop="outwarehousingprinting" label="出版社"></el-table-column> -->
       <el-table-column prop="outwarehousingtotal" label="出库总数"></el-table-column>
       <el-table-column prop="outwarehousingtime" label="出库时间"></el-table-column>
       <el-table-column prop="outwarehousingtype" label="出库方式"></el-table-column>
@@ -37,14 +37,16 @@
     <!-- 新增出库单 -->
     <el-dialog title="新增出库单" :visible.sync="dialogFormVisible" width="75%">
       <el-form :model="form">
-        <el-form-item label="出库单编号" :label-width="formLabelWidth" required>
-          <el-input v-model="form.outwarehousingId" autocomplete="off"></el-input>
-        </el-form-item>
         <el-form-item label="总金额" :label-width="formLabelWidth" required>
           <el-input v-model="form.outwarehousingprice" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="图书信息" :label-width="formLabelWidth" required>
           <el-table :data="form.books" :border=false>
+            <el-table-column prop="id" label="图书编号">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.id" autocomplete="off" size="small" placeholder="图书id"></el-input>
+              </template>
+            </el-table-column>
             <el-table-column prop="bookprice" label="图书单价">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.bookprice" autocomplete="off" size="small" placeholder="单价"></el-input>
@@ -63,6 +65,21 @@
             <el-table-column prop="outwarehousingprinting" label="出版社">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.outwarehousingprinting" autocomplete="off" size="small" placeholder="出版社"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="warehousename" label="仓库名称">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.warehousename" autocomplete="off" size="small" placeholder="仓库"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="kwname" label="库位名称">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.kwname" autocomplete="off" size="small" placeholder="库位"></el-input>
+              </template>
+            </el-table-column>
+            <el-table-column prop="kqname" label="库区名称">
+              <template slot-scope="scope">
+                <el-input v-model="scope.row.kqname" autocomplete="off" size="small" placeholder="库区"></el-input>
               </template>
             </el-table-column>
             <el-table-column prop="remarks" label="备注">
@@ -94,15 +111,6 @@
             <el-option label="换书出库" value="换书出库"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="仓库名称" :label-width="formLabelWidth" required>
-          <el-input v-model="form.warehousename" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="库位名称" :label-width="formLabelWidth" required>
-          <el-input v-model="form.kwname" autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="库区名称" :label-width="formLabelWidth" required>
-          <el-input v-model="form.kqname" autocomplete="off"></el-input>
-        </el-form-item>
         <el-form-item label="制单人" :label-width="formLabelWidth" required>
           <el-input v-model="form.outwarehousingperson" autocomplete="off"></el-input>
         </el-form-item>
@@ -119,8 +127,8 @@
     <!-- 出库单详情 -->
     <el-dialog title="出库单明细" :visible.sync="dialogTableVisible" width="70%">
       <el-table :data="gridData">
-        <el-table-column property="_id" label="图书编码"></el-table-column>
-        <el-table-column property="printingId" label="出版社编码"></el-table-column>
+        <el-table-column property="id" label="图书编码"></el-table-column>
+        <el-table-column property="outwarehousingprinting" label="出版社"></el-table-column>
         <el-table-column property="bookname" label="图书名称"></el-table-column>
         <el-table-column property="bookprice" label="图书单价"></el-table-column>
         <el-table-column property="warehousename" label="仓库名称"></el-table-column>
@@ -179,6 +187,11 @@ export default {
       this.dialogFormVisible = true
     },
     addware () {
+      let outwarehousingId = ''
+      for (let i = 0; i < 8; i++) {
+        outwarehousingId += Math.floor(Math.random()*10)
+      }
+      this.form.outwarehousingId = outwarehousingId
       apiPostOutwarehouse(this.form).then(res => {
         this.dialogFormVisible = false
         this.form = {}
@@ -192,23 +205,22 @@ export default {
       this.getlist()
     },
     detail(row) {
-      apiGetOutwarehouseOne({ printingId: row.printingId }).then(res => {
-        this.dialogTableVisible = true
-        this.gridData = res
-      }).catch(e => {
-        this.$message.warning(e.msg)
-      })
+      this.gridData = row.books
+      this.dialogTableVisible = true
     },
     // 表格增加行
     addmembers () {
       var member = this.form.books
       var length = member.length
       this.form.books.push({
-        id: parseInt(length),
+        id: '',
         bookprice: '',
         bookname: '',
         booknum: '',
         outwarehousingprinting: '',
+        warehousename: '',
+        kwname: '',
+        kqname: '',
         remarks: ''
       })
     },
