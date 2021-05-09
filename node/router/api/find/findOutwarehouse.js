@@ -11,9 +11,9 @@ module.exports = (req, res) => {
           return 
         }
       })
-      // if (newdata) {
-      //   newdata.splice(newdata.findIndex(item => item === undefined), 1)
-      // }
+      if (newdata) {
+        newdata = newdata.filter(n => n)
+      }
       res.send(newdata)
     })
     .catch(e => {
