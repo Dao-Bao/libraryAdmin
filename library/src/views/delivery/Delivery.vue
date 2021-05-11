@@ -47,7 +47,7 @@
                 <el-input v-model="scope.row.id" autocomplete="off" size="small" placeholder="图书id"></el-input>
               </template>
             </el-table-column>
-            <el-table-column prop="bookprice" label="图书单价">
+            <el-table-column prop="bookprice" label="图书数量">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.bookprice" autocomplete="off" size="small" placeholder="单价"></el-input>
               </template>
@@ -130,7 +130,7 @@
         <el-table-column property="id" label="图书编码"></el-table-column>
         <el-table-column property="outwarehousingprinting" label="出版社"></el-table-column>
         <el-table-column property="bookname" label="图书名称"></el-table-column>
-        <el-table-column property="bookprice" label="图书单价"></el-table-column>
+        <el-table-column property="bookprice" label="图书数量"></el-table-column>
         <el-table-column property="warehousename" label="仓库名称"></el-table-column>
         <el-table-column property="kwname" label="库位名称"></el-table-column>
         <el-table-column property="kqname" label="库区名称"></el-table-column>
