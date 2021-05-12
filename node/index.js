@@ -87,3 +87,5 @@ app.get('/findWarehouseOne', require('./router/api/find/findWarehouseOne'))/* �
 app.post('/addOutwarehouse', require('./router/api/add/addOutwarehouse')) /* 出库管理-新增入库单 */
 app.get('/findOutwarehouse', require('./router/api/find/findOutwarehouse'))/* 出库管理-列表 */
 app.get('/findOutwarehouseOne', require('./router/api/find/findOutwarehouseOne'))/* 出库管理-条件查找 */
+
+app.get('/findCheckInfo', require('./router/api/find/findCheckingInfo'))/* 库存信息盘点列表 */
