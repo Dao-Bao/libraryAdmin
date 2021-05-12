@@ -30,13 +30,14 @@
       <el-table-column prop="kqname" label="库区名称"></el-table-column>
       <el-table-column prop="minkc" label="最低库存"></el-table-column>
       <el-table-column prop="maxrl" label="最大容量"></el-table-column>
-      <el-table-column prop="kcyyj" label="库存预警"></el-table-column>
+      <!-- <el-table-column prop="kcyyj" label="库存预警"></el-table-column> -->
       <el-table-column prop="remark" label="备注"></el-table-column>
     </el-table>
   </div>
 </template>
 
 <script>
+import { apiGetCheckinfo } from '@/utils/http_url'
 export default {
   name: 'stock',
   data () {
@@ -46,7 +47,15 @@ export default {
       tableData: []
     }
   },
+  mounted () {
+    this.getData()
+  },
   methods:{
+    getData() {
+      apiGetCheckinfo().then(res => {
+        console.log(res.data)
+      })
+    },
     search () {
     },
     reset () {

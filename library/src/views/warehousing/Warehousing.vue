@@ -45,7 +45,7 @@
                 <el-input v-model="scope.row.id" autocomplete="off" size="small" placeholder="图书id"></el-input>
               </template>
             </el-table-column>
-            <el-table-column prop="bookprice" label="图书数量">
+            <el-table-column prop="bookprice" label="单价">
               <template slot-scope="scope">
                 <el-input v-model="scope.row.bookprice" autocomplete="off" size="small" placeholder="单价"></el-input>
               </template>

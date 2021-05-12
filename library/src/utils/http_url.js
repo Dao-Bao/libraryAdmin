@@ -115,3 +115,6 @@ export const apiPostOutwarehouse = data => post('/api/addOutwarehouse', data)
 export const apiGetOutwarehouse = data => get('/api/findOutwarehouse', data)
 // 单条
 export const apiGetOutwarehouseOne = data => get('/api/findOutwarehouseOne', data)
+
+/* 库存信息盘点 */
+export const apiGetCheckinfo = data => get('/api/findCheckInfo', data)
