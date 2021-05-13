@@ -18,7 +18,6 @@ let Schema = mongoose.Schema;
 let WareHouseSchema = new Schema({
   warehousingId: { type: Number, require: false }, /* 入库单编号 */
   warehousingprice: { type: Number, require: false }, /* 入库总金额 */
-  warehousingprinting: { type: String, require: false }, /* 入库出版社名称 */
   warehousingtotal: { type: Number, require: false }, /* 入库总数 */
   warehousingtime: { type: String, require: false }, /* 入库时间 */
   warehousingtype: { type: String, require: false }, /* 入库方式 */
@@ -27,12 +26,12 @@ let WareHouseSchema = new Schema({
   outwarehousingId: { type: Number, require: false }, /* 出库单编号 */
   bookname: { type: String, require: false }, /* 图书名称 */
   outwarehousingprice: { type: Number, require: false }, /* 出库总金额 */
-  outwarehousingprinting: { type: String, require: false }, /* 出库出版社名称 */
   outwarehousingtotal: { type: Number, require: false }, /* 出库总数 */
   bookprice: { type: Number, require: false }, /* 图书单价 */
   booknum: { type: Number, require: false }, /* 图书数量 */
   outwarehousingtime: { type: String, require: false }, /* 出库时间 */
   outwarehousingtype: { type: String, require: false }, /* 出库方式 */
+  outwarehousingprinting: { type: String, require: false }, /* 出版社名称 */
   warehousename: { type: String, require: false }, /* 仓库名称 */
   kwname: { type: String, require: false }, /* 库位名称 */
   kqname: { type: String, require: false }, /* 库区名称 */
